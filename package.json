@@ -1,0 +1,28 @@
+{
+  "name": "blog-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "node": "nodemon ./bin/www",
+    "start": "nodemon app.js",
+    "deploy": "bash deploy.sh",
+    "gh-pages": "bash deploy_gh-pages.sh"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^2.0.0",
+    "connect-multiparty": "^2.1.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.9",
+    "morgan": "^1.10.0",
+    "node-uuid": "^1.4.8",
+    "nodemon": "^2.0.6",
+    "serve-favicon": "~2.4.2"
+  }
+}
