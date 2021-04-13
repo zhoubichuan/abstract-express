@@ -5,6 +5,7 @@
   "scripts": {
     "node": "nodemon ./bin/www",
     "start": "nodemon app.js",
+    "dev": "nodemon app.js",
     "deploy": "bash deploy.sh",
     "gh-pages": "bash deploy_gh-pages.sh"
   },
