@@ -16,35 +16,35 @@ var orders = require('./routes/order')
 var products = require('./routes/product')
 let dataModel = require('./routes/dataModel')
 let systemTag = require('./routes/systemTag')
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt')
 
 //秘钥
 var signkey = 'mes_qdhd_mobile';
 //生成token
 const setToken = function (username) {
-    return new Promise((resolve, reject) => {
-        const token = jwt.sign({
-            username: username
-        }, signkey, { expiresIn:  60 * 60 * 24 * 3 });
-        // let info = jwt.verify(token.split(' ')[1], signkey)
-        // console.log(info);
-        console.log('token',token);
-        resolve(token);
-    })
+  return new Promise((resolve, reject) => {
+    const token = jwt.sign({
+      username: username
+    }, signkey, { expiresIn: 60 * 60 * 24 * 3 });
+    // let info = jwt.verify(token.split(' ')[1], signkey)
+    // console.log(info);
+    console.log('token', token);
+    resolve(token);
+  })
 }
 //验证token
 const verToken = function (token) {
-    return new Promise((resolve, reject) => {
-        var info = jwt.verify(token, signkey ,(error, decoded) => {
-            if (error) {
-              console.log(error.message)
-              return
-            }
-            console.log(decoded)
-          });
-        resolve(info);
-    })
+  return new Promise((resolve, reject) => {
+    var info = jwt.verify(token, signkey, (error, decoded) => {
+      if (error) {
+        console.log(error.message)
+        return
+      }
+      console.log(decoded)
+    });
+    resolve(info);
+  })
 }
 
 var app = express()
@@ -120,18 +120,18 @@ app.use(session({
 }))
 
 // 解析token获取用户信息
-app.use(function(req, res, next) {
-  var token = req.headers['authorization'];if(token == undefined){
-        return next();
-    }else{
-     verToken(token).then((data)=> {
-            req.data = data;
-            return next();
-        }).catch((error)=>{
-      　　　　console.log(error);
-            return next();
-        })
-    }
+app.use(function (req, res, next) {
+  var token = req.headers['authorization']; if (token == undefined) {
+    return next();
+  } else {
+    verToken(token).then((data) => {
+      req.data = data;
+      return next();
+    }).catch((error) => {
+      console.log(error);
+      return next();
+    })
+  }
 });
 
 
