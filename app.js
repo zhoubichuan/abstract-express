@@ -54,7 +54,7 @@ global.__base = __dirname + '/'
 mongoose.Promise = global.Promise
 // mongoose.connect('mongodb://127.0.0.1:27017/blog')
 // db
-const dburl = "mongodb://localhost:27017/blog";
+const dburl = "mongodb://81.71.127.69:27017/blog";
 
 mongoose.connect(dburl, {
   useNewUrlParser: true,
