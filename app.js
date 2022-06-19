@@ -64,7 +64,7 @@ mongoose.connect(dburl, {
 }).then(() => console.log('Database Successful！')).catch((err) => console.log(err));
 
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '7001');
 // 
 
 /**
@@ -113,7 +113,7 @@ app.use(session({
     maxAge: 24 * 3600 * 1000 * 7
   },
   store: new MongoStore({
-    url: 'mongodb://127.0.0.1:27017/blog'
+    url: 'mongodb://81.71.127.69:27017/blog'
   }),
   resave: false,
   saveUninitialized: false
