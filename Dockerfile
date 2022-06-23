@@ -12,4 +12,4 @@ COPY . /project/
 #在启动镜像时执行启动项目的命令
 CMD npm run dev
 #暴露端口用于外部访问
-# EXPOSE 7001
+EXPOSE 7005

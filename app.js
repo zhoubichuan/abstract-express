@@ -52,8 +52,6 @@ var app = express()
 var mongoose = require('mongoose')
 global.__base = __dirname + '/'
 mongoose.Promise = global.Promise
-// mongoose.connect('mongodb://127.0.0.1:27017/blog')
-// db
 const dburl = "mongodb://81.71.127.69:27017/blog";
 
 mongoose.connect(dburl, {
@@ -64,28 +62,6 @@ mongoose.connect(dburl, {
 }).then(() => console.log('Database Successful！')).catch((err) => console.log(err));
 
 
-var port = normalizePort(process.env.PORT || '7001');
-// 
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
 
 mongoose.connection.on('error', () => {
   console.log('Mongodb connected fail!')
@@ -97,10 +73,10 @@ mongoose.connection.on('disconnected', () => {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
-// app.set('port', port)
+app.set('port', port)
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -196,10 +172,23 @@ app.use(function (err, req, res, next) {
   res.render('error')
 })
 
+var port = normalizePort(process.env.PORT || '7005');
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+  return false;
+}
 
 const server = app.listen(port, 'localhost', () => {
   const host = server.address().address
   const port = server.address().port
   console.log("server started! 访问地址为 http://%s:%s", host, port)
 });
-// module.exports = app
