@@ -15,6 +15,8 @@ var pays = require('./routes/pay')
 var orders = require('./routes/order')
 var products = require('./routes/product')
 let dataEntity = require('./routes/dataEntity')
+let relationEntity = require('./routes/relationEntity')
+let dataInstance = require('./routes/dataInstance')
 let systemTag = require('./routes/systemTag')
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt')
@@ -145,6 +147,8 @@ app.use('/pay', pays)
 app.use('/order', orders)
 app.use('/product', products)
 app.use('/dataEntity', dataEntity)
+app.use('/relationEntity', relationEntity)
+app.use('/dataInstance', dataInstance)
 app.use('/systemBaseInfo', systemTag)
 
 // catch 404 and forward to error handler

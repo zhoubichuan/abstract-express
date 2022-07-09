@@ -16,9 +16,9 @@ var $filterObj = function (target, keys) {
   return result
 }
 
-var DataEntity = require('./../app/models/dataEntity')
+var RelationEntity = require('./../app/models/relationEntity')
 // 数据实体列表查询
-router.post('/getDataEntityList', async (req, res, next) => {
+router.post('/getRelationEntityList', async (req, res, next) => {
   let {
     code,
     name,
@@ -50,20 +50,20 @@ router.post('/getDataEntityList', async (req, res, next) => {
   // eos && (conditions.eos = eos)
   // tags && (conditions.tags = tags)
 
-  const total = await DataEntity.find().count()
-  DataEntity.find(conditions)
+  const total = await RelationEntity.find().count()
+  RelationEntity.find(conditions)
     .sort({
       '_id': -1
     })
     .skip(curPage)
     .limit(pageSize)
     .exec()
-    .then((DataEntity) => {
-      console.log(DataEntity)
-      if (DataEntity.length) {
+    .then((RelationEntity) => {
+      console.log(RelationEntity)
+      if (RelationEntity.length) {
         res.json({
           status: 200,
-          result: DataEntity,
+          result: RelationEntity,
           page: {
             total,
             curPage,
@@ -73,7 +73,7 @@ router.post('/getDataEntityList', async (req, res, next) => {
       } else {
         res.json({
           status: '0',
-          msg: '没有DataEntity',
+          msg: '没有RelationEntity',
           result: ''
         })
       }
@@ -81,10 +81,10 @@ router.post('/getDataEntityList', async (req, res, next) => {
 })
 
 // 获取数据实体详情
-router.post('/getDataEntityDetail', (req, res, next) => {
+router.post('/getRelationEntityDetail', (req, res, next) => {
   const { id } = req.body
 
-  DataEntity.findOne({ id })
+  RelationEntity.findOne({ id })
     .then((result) => {
       if (result) {
         console.log(result)
@@ -98,7 +98,7 @@ router.post('/getDataEntityDetail', (req, res, next) => {
       } else {
         res.json({
           status: '0',
-          msg: '没有DataEntity',
+          msg: '没有RelationEntity',
           result: ''
         })
       }
@@ -106,7 +106,7 @@ router.post('/getDataEntityDetail', (req, res, next) => {
 })
 
 // 创建数据实体
-router.post('/createDataEntity', async (req, res, next) => {
+router.post('/createRelationEntity', async (req, res, next) => {
   const {
     nameEn,
     name,
@@ -118,7 +118,7 @@ router.post('/createDataEntity', async (req, res, next) => {
     inherit,
     tableName,
   } = req.body
-  let result = await DataEntity.findOne({ nameEn })
+  let result = await RelationEntity.findOne({ nameEn })
   if (result) {
     return res.status(200).json({
       status: '0',
@@ -126,7 +126,7 @@ router.post('/createDataEntity', async (req, res, next) => {
       result: ''
     });
   } else {
-    let newDataEntity = {
+    let newRelationEntity = {
       nameEn,
       name,
       descriptEn,
@@ -138,8 +138,8 @@ router.post('/createDataEntity', async (req, res, next) => {
       tableName
     };
 
-    let DataEntityEntity = new DataEntity(newDataEntity)
-    DataEntityEntity.save(err => {
+    let RelationEntityEntity = new RelationEntity(newRelationEntity)
+    RelationEntityEntity.save(err => {
       if (err) {
         res.json({
           status: '0',
@@ -158,16 +158,16 @@ router.post('/createDataEntity', async (req, res, next) => {
 })
 
 // 更新数据实体
-router.put('/updateDataEntity', (req, res, next) => {
+router.put('/updateRelationEntity', (req, res, next) => {
   let keys = ['id', 'nameEn', 'name', 'descriptEn', 'descript', 'parentId', 'storeType', 'modelType', 'inherit', 'tableName']
   let params = $filterObj(req.body, keys)
-  DataEntity.updateOne({ id: params.id }, params, (err, result) => {
+  RelationEntity.updateOne({ id: params.id }, params, (err, result) => {
     if (err) {
       res.status(500).json({
         error: err
       });
     } else {
-      DataEntity.findOne({ id: params.id })
+      RelationEntity.findOne({ id: params.id })
         .then((result) => {
           if (result) {
             res.json({
@@ -189,14 +189,14 @@ router.put('/updateDataEntity', (req, res, next) => {
 })
 
 // 删除数据实体
-router.delete('/deleteDataEntity', (req, res, next) => {
+router.delete('/deleteRelationEntity', (req, res, next) => {
   const arr = req.body;
-  DataEntity.remove({
+  RelationEntity.remove({
     _id: {
       $in: arr
     }
-  }).then((DataEntity) => {
-    if (DataEntity) {
+  }).then((RelationEntity) => {
+    if (RelationEntity) {
       res.status(200).json({
         status: 200,
         msg: '删除成功',
@@ -214,24 +214,24 @@ router.delete('/deleteDataEntity', (req, res, next) => {
 
 
 // 数据实体基本属性列表查询
-router.get('/getDataEntityBaseAttrList', (req, res, next) => {
-  DataEntity.find({})
+router.get('/getRelationEntityBaseAttrList', (req, res, next) => {
+  RelationEntity.find({})
     .sort({
       '_id': -1
     })
     .limit(20)
     .exec()
-    .then((DataEntity) => {
-      if (DataEntity.length) {
+    .then((RelationEntity) => {
+      if (RelationEntity.length) {
         res.json({
           status: 200,
           msg: '',
-          result: DataEntity
+          result: RelationEntity
         })
       } else {
         res.json({
           status: '0',
-          msg: '没有DataEntity',
+          msg: '没有RelationEntity',
           result: ''
         })
       }
@@ -239,9 +239,9 @@ router.get('/getDataEntityBaseAttrList', (req, res, next) => {
 })
 
 // 数据实体基本属性详情查询
-router.get('/getDataEntityBaseAttrDetail:id', (req, res, next) => {
+router.get('/getRelationEntityBaseAttrDetail:id', (req, res, next) => {
   const { id } = req.params;
-  DataEntity.find({
+  RelationEntity.find({
     id
   })
     .sort({
@@ -249,17 +249,17 @@ router.get('/getDataEntityBaseAttrDetail:id', (req, res, next) => {
     })
     .limit(10)
     .exec()
-    .then((DataEntity) => {
-      if (DataEntity) {
+    .then((RelationEntity) => {
+      if (RelationEntity) {
         res.json({
           status: 200,
           msg: '',
-          result: DataEntity
+          result: RelationEntity
         })
       } else {
         res.json({
           status: '0',
-          msg: '没有DataEntity',
+          msg: '没有RelationEntity',
           result: ''
         })
       }
@@ -267,7 +267,7 @@ router.get('/getDataEntityBaseAttrDetail:id', (req, res, next) => {
 })
 
 // 数据实体基本属性创建
-router.post('/createDataEntityBaseAttr', (req, res, next) => {
+router.post('/createRelationEntityBaseAttr', (req, res, next) => {
   const {
     nameEn,
     name,
@@ -284,7 +284,7 @@ router.post('/createDataEntityBaseAttr', (req, res, next) => {
     modifierr,
     modifyTime
   } = req.body
-  DataEntity.findOne({ nameEn }).then((result) => {
+  RelationEntity.findOne({ nameEn }).then((result) => {
     if (result) {
       return res.status(200).json({
         status: '0',
@@ -292,7 +292,7 @@ router.post('/createDataEntityBaseAttr', (req, res, next) => {
         result: ''
       });
     } else {
-      let newDataEntity = {
+      let newRelationEntity = {
         nameEn,
         name,
         descriptEn,
@@ -309,8 +309,8 @@ router.post('/createDataEntityBaseAttr', (req, res, next) => {
         modifyTime
       };
 
-      let DataEntityEntity = new DataEntity(newDataEntity)
-      DataEntityEntity.save(err => {
+      let RelationEntityEntity = new RelationEntity(newRelationEntity)
+      RelationEntityEntity.save(err => {
         if (err) {
           res.json({
             status: '0',
@@ -330,28 +330,28 @@ router.post('/createDataEntityBaseAttr', (req, res, next) => {
 })
 
 // 数据实体基本属性更新
-router.put('/updateDataEntityBaseAttr', (req, res, next) => {
+router.put('/updateRelationEntityBaseAttr', (req, res, next) => {
   const { id } = req.params;
-  DataEntity.updateOne({
+  RelationEntity.updateOne({
     id
-  }, req.body, (err, DataEntity) => {
+  }, req.body, (err, RelationEntity) => {
     if (err) {
       res.status(500).json({
         error: err
       });
     } else {
-      res.status(200).send(DataEntity);
+      res.status(200).send(RelationEntity);
     }
   })
 })
 
 // 数据实体基本属性删除
-router.delete('/updateDataEntityBaseAttrDelete', (req, res, next) => {
+router.delete('/updateRelationEntityBaseAttrDelete', (req, res, next) => {
   const { id } = req.params;
-  DataEntity.deleteOne({
+  RelationEntity.deleteOne({
     _id: id
-  }).then((DataEntity) => {
-    if (DataEntity) {
+  }).then((RelationEntity) => {
+    if (RelationEntity) {
       res.status(200).json({
         status: 200,
         msg: '删除成功',
@@ -374,24 +374,24 @@ router.delete('/updateDataEntityBaseAttrDelete', (req, res, next) => {
 
 
 // 数据实体扩展属性列表查询
-router.get('/getDataEntityExtendAttrList', (req, res, next) => {
-  DataEntity.find({})
+router.get('/getRelationEntityExtendAttrList', (req, res, next) => {
+  RelationEntity.find({})
     .sort({
       '_id': -1
     })
     .limit(20)
     .exec()
-    .then((DataEntity) => {
-      if (DataEntity.length) {
+    .then((RelationEntity) => {
+      if (RelationEntity.length) {
         res.json({
           status: 200,
           msg: '',
-          result: DataEntity
+          result: RelationEntity
         })
       } else {
         res.json({
           status: '0',
-          msg: '没有DataEntity',
+          msg: '没有RelationEntity',
           result: ''
         })
       }
@@ -399,9 +399,9 @@ router.get('/getDataEntityExtendAttrList', (req, res, next) => {
 })
 
 // 数据实体基本属性详情查询
-router.get('/getDataEntityBaseAttrDetail:id', (req, res, next) => {
+router.get('/getRelationEntityBaseAttrDetail:id', (req, res, next) => {
   const { id } = req.params;
-  DataEntity.find({
+  RelationEntity.find({
     id
   })
     .sort({
@@ -409,17 +409,17 @@ router.get('/getDataEntityBaseAttrDetail:id', (req, res, next) => {
     })
     .limit(10)
     .exec()
-    .then((DataEntity) => {
-      if (DataEntity) {
+    .then((RelationEntity) => {
+      if (RelationEntity) {
         res.json({
           status: 200,
           msg: '',
-          result: DataEntity
+          result: RelationEntity
         })
       } else {
         res.json({
           status: '0',
-          msg: '没有DataEntity',
+          msg: '没有RelationEntity',
           result: ''
         })
       }
@@ -427,7 +427,7 @@ router.get('/getDataEntityBaseAttrDetail:id', (req, res, next) => {
 })
 
 // 数据实体基本属性创建
-router.post('/createDataEntityExtendAttr', (req, res, next) => {
+router.post('/createRelationEntityExtendAttr', (req, res, next) => {
   const {
     nameEn,
     name,
@@ -444,7 +444,7 @@ router.post('/createDataEntityExtendAttr', (req, res, next) => {
     modifierr,
     modifyTime
   } = req.body
-  DataEntity.findOne({ nameEn }).then((result) => {
+  RelationEntity.findOne({ nameEn }).then((result) => {
     if (result) {
       return res.status(200).json({
         status: '0',
@@ -452,7 +452,7 @@ router.post('/createDataEntityExtendAttr', (req, res, next) => {
         result: ''
       });
     } else {
-      let newDataEntity = {
+      let newRelationEntity = {
         nameEn,
         name,
         descriptEn,
@@ -469,8 +469,8 @@ router.post('/createDataEntityExtendAttr', (req, res, next) => {
         modifyTime
       };
 
-      let DataEntityEntity = new DataEntity(newDataEntity)
-      DataEntityEntity.save(err => {
+      let RelationEntityEntity = new RelationEntity(newRelationEntity)
+      RelationEntityEntity.save(err => {
         if (err) {
           res.json({
             status: '0',
@@ -490,28 +490,28 @@ router.post('/createDataEntityExtendAttr', (req, res, next) => {
 })
 
 // 数据实体扩展属性更新
-router.put('/updateDataEntityExtendAttr', (req, res, next) => {
+router.put('/updateRelationEntityExtendAttr', (req, res, next) => {
   const { id } = req.params;
-  DataEntity.updateOne({
+  RelationEntity.updateOne({
     id
-  }, req.body, (err, DataEntity) => {
+  }, req.body, (err, RelationEntity) => {
     if (err) {
       res.status(500).json({
         error: err
       });
     } else {
-      res.status(200).send(DataEntity);
+      res.status(200).send(RelationEntity);
     }
   })
 })
 
 // 数据实体基本属性删除
-router.delete('/updateDataEntityExtendAttrDelete', (req, res, next) => {
+router.delete('/updateRelationEntityExtendAttrDelete', (req, res, next) => {
   const { id } = req.params;
-  DataEntity.deleteOne({
+  RelationEntity.deleteOne({
     _id: id
-  }).then((DataEntity) => {
-    if (DataEntity) {
+  }).then((RelationEntity) => {
+    if (RelationEntity) {
       res.status(200).json({
         status: 200,
         msg: '删除成功',
@@ -530,24 +530,24 @@ router.delete('/updateDataEntityExtendAttrDelete', (req, res, next) => {
 
 
 // 数据实体父模型属性列表查询
-router.get('/getDataEntityParentAttrList', (req, res, next) => {
-  DataEntity.find({})
+router.get('/getRelationEntityParentAttrList', (req, res, next) => {
+  RelationEntity.find({})
     .sort({
       '_id': -1
     })
     .limit(20)
     .exec()
-    .then((DataEntity) => {
-      if (DataEntity.length) {
+    .then((RelationEntity) => {
+      if (RelationEntity.length) {
         res.json({
           status: 200,
           msg: '',
-          result: DataEntity
+          result: RelationEntity
         })
       } else {
         res.json({
           status: '0',
-          msg: '没有DataEntity',
+          msg: '没有RelationEntity',
           result: ''
         })
       }
@@ -555,9 +555,9 @@ router.get('/getDataEntityParentAttrList', (req, res, next) => {
 })
 
 // 数据实体父模型属性详情查询
-router.get('/getDataEntityParentAttrDetail:id', (req, res, next) => {
+router.get('/getRelationEntityParentAttrDetail:id', (req, res, next) => {
   const { id } = req.params;
-  DataEntity.find({
+  RelationEntity.find({
     id
   })
     .sort({
@@ -565,17 +565,17 @@ router.get('/getDataEntityParentAttrDetail:id', (req, res, next) => {
     })
     .limit(10)
     .exec()
-    .then((DataEntity) => {
-      if (DataEntity) {
+    .then((RelationEntity) => {
+      if (RelationEntity) {
         res.json({
           status: 200,
           msg: '',
-          result: DataEntity
+          result: RelationEntity
         })
       } else {
         res.json({
           status: '0',
-          msg: '没有DataEntity',
+          msg: '没有RelationEntity',
           result: ''
         })
       }
