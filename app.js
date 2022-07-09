@@ -14,7 +14,7 @@ var tags = require('./routes/tags')
 var pays = require('./routes/pay')
 var orders = require('./routes/order')
 var products = require('./routes/product')
-let dataModel = require('./routes/dataModel')
+let dataEntity = require('./routes/dataEntity')
 let systemTag = require('./routes/systemTag')
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt')
@@ -52,7 +52,7 @@ var app = express()
 var mongoose = require('mongoose')
 global.__base = __dirname + '/'
 mongoose.Promise = global.Promise
-const dburl = "mongodb://81.71.127.69:27017/blog";
+const dburl = "mongodb://localhost:27017/blog";
 
 mongoose.connect(dburl, {
   useNewUrlParser: true,
@@ -144,7 +144,7 @@ app.use('/tag', tags)
 app.use('/pay', pays)
 app.use('/order', orders)
 app.use('/product', products)
-app.use('/dataModel', dataModel)
+app.use('/dataEntity', dataEntity)
 app.use('/systemBaseInfo', systemTag)
 
 // catch 404 and forward to error handler

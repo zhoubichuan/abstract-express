@@ -10,7 +10,7 @@ router.get('/',(req,res,next) => {
 		.then((pays) => {
 			if (pays) {
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					result: pays
 				})
@@ -32,7 +32,7 @@ router.get('/:id',(req,res,next) => {
 		.populate('payName')
 		.exec(function (err, pay) {   
 			if (err) {   
-			  return res.status(400).send({   
+			  return res.status(200).send({   
 				message: '不存在',   
 				result: {}   
 			  });   
@@ -51,7 +51,7 @@ router.post('/add', (req, res, next) => {
 
 		Pay.findOne({ paymentName: req.body.paymentName }).then((pay) => {
         if (pay) {
-			return res.status(400).json(
+			return res.status(200).json(
 				{
 					status: '0',
 					msg: '帐户已存在',
@@ -74,7 +74,7 @@ router.post('/add', (req, res, next) => {
 					})
 				} else {
 					res.json({
-						status: '1',
+						status: 200,
 						msg: '帐户创建成功',
 						result: ''
 					})
@@ -90,12 +90,12 @@ router.delete('/del/:id',  (req, res, next) => {
 	Pay.deleteOne({ _id: id }).then((pay) => {
 		if(pay){
 			res.status(200).json({
-				status: '1',
+				status: 200,
 				msg: '删除帐户成功',
 				result: ''
 			})
 		}else{
-			res.status(400).json({
+			res.status(200).json({
 				status: '0',
 				msg: '用户不存在',
 				result: ''
@@ -112,7 +112,7 @@ router.get('/total',(req,res,next) => {
 			console.log('total  ' + total)
 			if(total > 0){
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					total: total
 				})

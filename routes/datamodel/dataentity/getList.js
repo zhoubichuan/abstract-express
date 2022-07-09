@@ -8,7 +8,7 @@ var {
   adminRole
 } = require('../../../middleware/auth.js')
 
-var Product = require('./../../../app/models/datamodel/dataentity/getList')
+var Product = require('./../../../app/models/dataEntity/dataentity/getList')
 router.use(signRequired)
 
 //查询所有的 tags
@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
     .then((product) => {
       if (product) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: product
         })
@@ -50,7 +50,7 @@ router.get('/:productName', (req, res, next) => {
     .then((product) => {
       if (product) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: product
         })
@@ -75,7 +75,7 @@ router.post('/add', (req, res, next) => {
     productName: req.body.productName
   }).then((product) => {
     if (product) {
-      return res.status(400).json({
+      return res.status(200).json({
         status: '0',
         msg: '产品已存在',
         result: ''
@@ -98,7 +98,7 @@ router.post('/add', (req, res, next) => {
           })
         } else {
           res.json({
-            status: '1',
+            status: 200,
             msg: '产品创建成功',
             result: ''
           })
@@ -132,12 +132,12 @@ router.delete('/del/:id', (req, res, next) => {
   }).then((product) => {
     if (product) {
       res.status(200).json({
-        status: '1',
+        status: 200,
         msg: '删除成功',
         result: ''
       })
     } else {
-      res.status(400).json({
+      res.status(200).json({
         status: '0',
         msg: '不存在',
         result: ''
@@ -152,7 +152,7 @@ router.get('/total', (req, res, next) => {
   console.log('product total   ' + total)
   if (total > 0) {
     res.json({
-      status: '1',
+      status: 200,
       msg: '',
       total: num
     })

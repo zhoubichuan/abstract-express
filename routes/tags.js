@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
 		.then((tags) => {
 			if (tags) {
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					result: tags
 				})
@@ -41,7 +41,7 @@ router.get('/type/:number',(req,res,next) => {
     .then((tags) => {
         if (tags) {
             res.json({
-                status: '1',
+                status: 200,
                 msg: '',
                 result: tags
             })
@@ -62,7 +62,7 @@ router.post('/add',(req,res,next) => {
 
     Tag.findOne({tagName:req.body.tagName}).then((tag)　=> {
         if(tag){
-            return res.status(400).json(
+            return res.status(200).json(
 				{
 					status: '0',
 					msg: '标签已存在',
@@ -85,7 +85,7 @@ router.post('/add',(req,res,next) => {
                     })
                 } else {
                     res.json({
-                        status: '1',
+                        status: 200,
                         msg: '标签创建成功',
                         result: ''
                     })
@@ -102,12 +102,12 @@ router.delete('/del/:id',(req,res,next) => {
 		// console.log(user)
 		if(tag){
 			res.status(200).json({
-				status: '1',
+				status: 200,
 				msg: '删除标签成功',
 				result: ''
 			})
 		}else{
-			res.status(400).json({
+			res.status(200).json({
 				status: '0',
 				msg: '标签不存在',
 				result: ''

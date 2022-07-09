@@ -5,7 +5,7 @@ const ObjectId = Schema.Types.ObjectId
 const crypto = require('crypto')
 const uuid = require('node-uuid')
 
-const DataModelSchema = new mongoose.Schema({
+const dataEntitySchema = new mongoose.Schema({
   nameEn:{
     unique: true,
     type:String
@@ -35,7 +35,7 @@ const DataModelSchema = new mongoose.Schema({
   }
 });
 
-DataModelSchema.pre('save', function() {
+dataEntitySchema.pre('save', function() {
   if (this.isNew) {
     this.createTime = this.modifyTime = Date.now()
     this.state = 'iwork'
@@ -48,4 +48,4 @@ DataModelSchema.pre('save', function() {
   next()
 })
 
-module.exports = DataModelSchema
+module.exports = dataEntitySchema

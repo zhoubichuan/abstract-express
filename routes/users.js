@@ -35,7 +35,7 @@ router.get('/', async (req, res, next) => {
 		.exec()
 	if (data) {
 		res.json({
-			status: '1',
+			status: 200,
 			msg: '',
 			result: data
 		})
@@ -63,7 +63,7 @@ router.get('/page/:page/size/:size', (req, res, next) => {
 	query.exec().then((users, total, index) => {
 		if (users) {
 			res.json({
-				status: '1',
+				status: 200,
 				msg: '',
 				result: users,
 				curPage: index
@@ -85,7 +85,7 @@ router.get('/total', (req, res, next) => {
 			console.log('total  ' + total)
 			if (total > 0) {
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					total: total
 				})
@@ -109,7 +109,7 @@ router.get('/:id', (req, res, next) => {
 			console.log(user)
 			if (user) {
 				res.status(200).json({
-					status: '1',
+					status: 200,
 					msg: '',
 					result: user
 				})
@@ -137,7 +137,7 @@ router.post('/add', (req, res, next) => {
 
 	User.findOne({ account: req.body.account }).then((user) => {
 		if (user) {
-			return res.status(400).json(
+			return res.status(200).json(
 				{
 					status: '0',
 					msg: '用户已存在',
@@ -180,7 +180,7 @@ router.post('/add', (req, res, next) => {
 							})
 						} else {
 							res.json({
-								status: '1',
+								status: 200,
 								msg: '用户创建成功',
 								result: ''
 							})
@@ -199,12 +199,12 @@ router.delete('/del/:id', (req, res, next) => {
 		// console.log(user)
 		if (user) {
 			res.status(200).json({
-				status: '1',
+				status: 200,
 				msg: '删除用户成功',
 				result: ''
 			})
 		} else {
-			res.status(400).json({
+			res.status(200).json({
 				status: '0',
 				msg: '用户不存在',
 				result: ''
@@ -243,7 +243,7 @@ router.post('/modify/role', (req, res, next) => {
 						})
 					} else {
 						res.json({
-							status: '1',
+							status: 200,
 							msg: '权限修改成功',
 							result: ''
 						})
@@ -283,7 +283,7 @@ router.post('/modify/psd', (req, res, next) => {
 							})
 						} else {
 							res.json({
-								status: '1',
+								status: 200,
 								msg: '修改密码成功',
 								result: ''
 							})
@@ -326,7 +326,7 @@ router.post('/login', (req, res, next) => {
 						req.session.user = user
 						setToken(user).then(token =>
 							res.json({
-								status: '1',
+								status: 200,
 								msg: '',
 								result: {
 									'token': token,
@@ -357,7 +357,7 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
 	delete req.session.user
 	res.json({
-		status: '1',
+		status: 200,
 		msg: '用户已登出',
 		result: ''
 	})
@@ -375,7 +375,7 @@ router.post('/checklogin', (req, res, next) => {
 				if (user) {
 					req.session.user = user
 					res.json({
-						status: '1',
+						status: 200,
 						msg: '用户已登陆',
 						result: user
 					})
@@ -404,7 +404,7 @@ router.get('/userInfo/:id', (req, res, next) => {
 		.exec((err, info) => {
 			if (info) {
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					result: info
 				})
@@ -461,7 +461,7 @@ router.post('/userInfo/:id', (req, res, next) => {
 
 		newInfo.save().then(info =>
 			res.json({
-				status: '1',
+				status: 200,
 				msg: "修改成功",
 				result: info
 			})).catch(err => console.log(err));

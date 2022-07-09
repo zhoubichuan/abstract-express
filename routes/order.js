@@ -13,7 +13,7 @@ router.get('/type',(req,res,next) => {
 		.then((types) => {
 			if (types) {
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					result: types
 				})
@@ -40,7 +40,7 @@ router.get('/',(req,res,next) => {
 		.then((order) => {
 			if (order) {
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					result: order
 				})
@@ -61,7 +61,7 @@ router.get('/type/:id',(req,res,next) => {
 	OrderType.findById({_id})
 		.exec(function (err, type) {   
 			if (err) {   
-			  return res.status(400).send({   
+			  return res.status(200).send({   
 				message: '类型不存在',   
 				result: {}   
 			  });   
@@ -79,7 +79,7 @@ router.get('/:id',(req,res,next) => {
 	Order.findById({_id})
 		.exec(function (err, order) {   
 			if (err) {   
-			  return res.status(400).send({   
+			  return res.status(200).send({   
 				message: '类型不存在',   
 				result: {}   
 			  });   
@@ -122,7 +122,7 @@ router.post('/type/add',(req,res,next) => {
 	console.log('orderType   ' + orderType)
     OrderType.findOne({orderType:req.body.orderType}).then((type)　=> {
         if(type){
-            return res.status(400).json(
+            return res.status(200).json(
 				{
 					status: '0',
 					msg: '客户类型已存在',
@@ -145,7 +145,7 @@ router.post('/type/add',(req,res,next) => {
                     })
                 } else {
                     res.json({
-                        status: '1',
+                        status: 200,
                         msg: '客户类型创建成功',
                         result: ''
                     })
@@ -178,7 +178,7 @@ router.post('/add',(req,res,next) => {
 		  console.log('client  ' + client)
 	    Order.findOne({contractNo:req.body.contractNo}).then((order)　=> {
         if(order){
-            return res.status(400).json(
+            return res.status(200).json(
 				{
 					status: '0',
 					msg: '订单已存在',
@@ -219,7 +219,7 @@ router.post('/add',(req,res,next) => {
                     })
                 } else {
                     res.json({
-                        status: '1',
+                        status: 200,
                         msg: '订单创建成功',
                         result: ''
                     })
@@ -238,12 +238,12 @@ router.delete('/type/del/:id',(req,res,next) => {
 		console.log(type)
 		if(order){
 			res.status(200).json({
-				status: '1',
+				status: 200,
 				msg: '删除成功',
 				result: ''
 			})
 		}else{
-			res.status(400).json({
+			res.status(200).json({
 				status: '0',
 				msg: '不存在',
 				result: ''
@@ -258,12 +258,12 @@ router.delete('/del/:id',(req,res,next) => {
 		console.log(order)
 		if(order){
 			res.status(200).json({
-				status: '1',
+				status: 200,
 				msg: '删除成功',
 				result: ''
 			})
 		}else{
-			res.status(400).json({
+			res.status(200).json({
 				status: '0',
 				msg: '不存在',
 				result: ''
@@ -279,7 +279,7 @@ router.get('/type/total',(req,res,next) => {
 			console.log('total  ' + total)
 			if(total > 0){
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					total: total
 				})

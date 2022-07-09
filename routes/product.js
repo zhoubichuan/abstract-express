@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
     .then((product) => {
       if (product) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           data: product
         })
@@ -50,7 +50,7 @@ router.get('/:nameEn', (req, res, next) => {
     .then((product) => {
       if (product) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: product
         })
@@ -75,7 +75,7 @@ router.post('/add', (req, res, next) => {
     nameEn: req.body.nameEn
   }).then((product) => {
     if (product) {
-      return res.status(400).json({
+      return res.status(200).json({
         status: '0',
         msg: '产品已存在',
         result: ''
@@ -98,7 +98,7 @@ router.post('/add', (req, res, next) => {
           })
         } else {
           res.json({
-            status: '1',
+            status: 200,
             msg: '产品创建成功',
             result: ''
           })
@@ -124,13 +124,13 @@ router.post('/createDataEntity', (req, res, next) => {
     nameEn
   }).then((product) => {
     if (product) {
-      return res.status(400).json({
+      return res.status(200).json({
         status: '0',
         msg: '产品已存在',
         result: ''
       });
     } else {
-      let dataModel = {
+      let dataEntity = {
         nameEn,
         name,
         descriptEn,
@@ -142,7 +142,7 @@ router.post('/createDataEntity', (req, res, next) => {
         tableName
       };
 
-      let productEntity = new Product(dataModel)
+      let productEntity = new Product(dataEntity)
       productEntity.save(err => {
         if (err) {
           res.json({
@@ -152,7 +152,7 @@ router.post('/createDataEntity', (req, res, next) => {
           })
         } else {
           res.json({
-            status: '1',
+            status: 200,
             msg: '产品创建成功',
             result: ''
           })
@@ -186,12 +186,12 @@ router.delete('/del/:id', (req, res, next) => {
   }).then((product) => {
     if (product) {
       res.status(200).json({
-        status: '1',
+        status: 200,
         msg: '删除成功',
         result: ''
       })
     } else {
-      res.status(400).json({
+      res.status(200).json({
         status: '0',
         msg: '不存在',
         result: ''
@@ -206,7 +206,7 @@ router.get('/total', (req, res, next) => {
   console.log('product total   ' + total)
   if (total > 0) {
     res.json({
-      status: '1',
+      status: 200,
       msg: '',
       total: num
     })

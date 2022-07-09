@@ -5,7 +5,7 @@ exports.uploadImage = (req, res, next) => {
   // 用于判断是否element ui上传组件
   if (req.headers.flag) {
     res.json({
-      status: '1',
+      status: 200,
       msg: '缓存图片',
       result: ''
     })

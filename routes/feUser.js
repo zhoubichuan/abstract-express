@@ -10,7 +10,7 @@ router.get('/author', (req, res, next) => {
         .exec()
         .then(user => {
             res.json({
-                status: '1',
+                status: 200,
                 msg: '',
                 result: user
             })

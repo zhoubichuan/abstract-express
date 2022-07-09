@@ -19,7 +19,7 @@ router.get('/type',(req,res,next) => {
 		.then((types) => {
 			if (types) {
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					result: types
 				})
@@ -41,7 +41,7 @@ router.get('/type/:id',(req,res,next) => {
 		.populate('typeName','clientType')
 		.exec(function (err, type) {   
 			if (err) {   
-			  return res.status(400).send({   
+			  return res.status(200).send({   
 				message: '类型不存在',   
 				result: {}   
 			  });   
@@ -72,7 +72,7 @@ router.post('/type/add',(req,res,next) => {
 
     ClientType.findOne({clientType:req.body.clientType}).then((type)　=> {
         if(type){
-            return res.status(400).json(
+            return res.status(200).json(
 				{
 					status: '0',
 					msg: '客户类型已存在',
@@ -94,7 +94,7 @@ router.post('/type/add',(req,res,next) => {
                     })
                 } else {
                     res.json({
-                        status: '1',
+                        status: 200,
                         msg: '客户类型创建成功',
                         result: ''
                     })
@@ -112,12 +112,12 @@ router.delete('/type/del/:id',(req,res,next) => {
 		console.log(type)
 		if(type){
 			res.status(200).json({
-				status: '1',
+				status: 200,
 				msg: '删除成功',
 				result: ''
 			})
 		}else{
-			res.status(400).json({
+			res.status(200).json({
 				status: '0',
 				msg: '不存在',
 				result: ''
@@ -145,7 +145,7 @@ router.get('/', (req, res, next) => {
 		.exec((err, clients) => {
 			if (clients) {
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					result: clients
 				})
@@ -166,7 +166,7 @@ router.get('/total',(req,res,next) => {
 			console.log('total  ' + total)
 			if(total > 0){
 				res.json({
-					status: '1',
+					status: 200,
 					msg: '',
 					total: total
 				})
@@ -190,7 +190,7 @@ router.get('/:name',(req,res,next) => {
     .then((client) => {
         if (client) {
             res.json({
-                status: '1',
+                status: 200,
                 msg: '',
                 result: client
             })
@@ -218,7 +218,7 @@ router.post('/add',(req,res,next) => {
 
     Client.findOne({clientName:req.body.clientName}).then((client)　=> {
         if(client){
-            return res.status(400).json(
+            return res.status(200).json(
 				{
 					status: '0',
 					msg: '客户已存在',
@@ -248,7 +248,7 @@ router.post('/add',(req,res,next) => {
                     })
                 } else {
                     res.json({
-                        status: '1',
+                        status: 200,
                         msg: '客户创建成功',
                         result: ''
                     })
@@ -265,12 +265,12 @@ router.delete('/del/:id',(req,res,next) => {
 		// console.log(user)
 		if(client){
 			res.status(200).json({
-				status: '1',
+				status: 200,
 				msg: '删除成功',
 				result: ''
 			})
 		}else{
-			res.status(400).json({
+			res.status(200).json({
 				status: '0',
 				msg: '不存在',
 				result: ''

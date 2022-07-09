@@ -16,7 +16,7 @@ var $filterObj = function (target, keys) {
   return result
 }
 
-var Tag = require('./../app/models/systemTag')
+var Tag = require('./../app/models/tag')
 // 数据实体列表查询
 router.post('/getTagList', async (req, res, next) => {
   let {
@@ -62,7 +62,7 @@ router.post('/getTagList', async (req, res, next) => {
       console.log(Tag)
       if (Tag.length) {
         res.json({
-          status: '1',
+          status: 200,
           result: Tag,
           page: {
             total,
@@ -82,16 +82,16 @@ router.post('/getTagList', async (req, res, next) => {
 
 // 获取数据实体详情
 router.post('/getTagDetail', (req, res, next) => {
-  const {id} = req.body
-  
-  Tag.findOne({id})
+  const { id } = req.body
+
+  Tag.findOne({ id })
     .then((result) => {
       if (result) {
         console.log(result)
-        let keys = ['id','code','state', 'nameEn', 'name', 'descriptEn', 'descript', 'parentId', 'storeType', 'modelType', 'inherit', 'tableName', 'version', 'creater','creatTime','modifier','modifyTime']
+        let keys = ['id', 'code', 'state', 'nameEn', 'name', 'descriptEn', 'descript', 'parentId', 'storeType', 'modelType', 'inherit', 'tableName', 'version', 'creater', 'creatTime', 'modifier', 'modifyTime']
         let data = $filterObj(result, keys)
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: data
         })
@@ -106,85 +106,74 @@ router.post('/getTagDetail', (req, res, next) => {
 })
 
 // 创建数据实体
-router.post('/createTag', (req, res, next) => {
+router.post('/createTag', async (req, res, next) => {
   const {
     nameEn,
     name,
     descriptEn,
     descript,
-    parentId,
-    modelType,
-    storeType,
-    inherit,
-    tableName,
   } = req.body
-  Tag.findOne({nameEn}).then((result) => {
-    if (result) {
-      return res.status(400).json({
-        status: '0',
-        msg: '产品已存在',
-        result: ''
-      });
-    } else {
-      let newTag = {
-        nameEn,
-        name,
-        descriptEn,
-        descript,
-        parentId,
-        modelType,
-        storeType,
-        inherit,
-        tableName
-      };
+  let result = await Tag.findOne({ nameEn })
+  if (result) {
+    return res.status(200).json({
+      status: '0',
+      msg: '标签已存在',
+      result: ''
+    });
+  } else {
+    let newTag = {
+      nameEn,
+      name,
+      descriptEn,
+      descript,
+    };
 
-      let TagEntity = new Tag(newTag)
-      TagEntity.save(err => {
-        if (err) {
-          res.json({
-            status: '0',
-            msg: err.message,
-            result: ''
-          })
-        } else {
-          res.json({
-            status: '1',
-            msg: '产品创建成功',
-            result: ''
-          })
-        }
-      })
-    }
-  })
+    let TagEntity = new Tag(newTag)
+    TagEntity.save(err => {
+      if (err) {
+        res.json({
+          status: '0',
+          msg: err.message,
+          result: ''
+        })
+      } else {
+        res.json({
+          status: 200,
+          msg: '产品创建成功',
+          result: ''
+        })
+      }
+    })
+  }
 })
 
 // 更新数据实体
 router.put('/updateTag', (req, res, next) => {
   let keys = ['id', 'nameEn', 'name', 'descriptEn', 'descript', 'parentId', 'storeType', 'modelType', 'inherit', 'tableName']
   let params = $filterObj(req.body, keys)
-  Tag.updateOne({id:params.id}, params, (err, result) => {
+  Tag.updateOne({ id: params.id }, params, (err, result) => {
     if (err) {
       res.status(500).json({
         error: err
       });
     } else {
-      Tag.findOne({id: params.id})
-      .then((result) => {
-        if (result) {
-          res.json({
-            status: '1',
-            msg: '更新成功',
-            result: result
-          })
-        } else {
-          res.json({
-            status: '0',
-            msg: '没有查询出数据实体',
-            result: ''
-          })
-        }
-      })
-      
+      Tag.findOne({ id: params.id })
+        .then((result) => {
+          if (result) {
+            res.json({
+              status: 200,
+              msg: '更新成功',
+              result: result
+            })
+          } else {
+            res.json({
+              status: '0',
+              msg: '没有查询出数据实体',
+              result: ''
+            })
+          }
+        })
+
     }
   })
 })
@@ -199,12 +188,12 @@ router.delete('/deleteTag', (req, res, next) => {
   }).then((Tag) => {
     if (Tag) {
       res.status(200).json({
-        status: '1',
+        status: 200,
         msg: '删除成功',
         result: ''
       })
     } else {
-      res.status(400).json({
+      res.status(200).json({
         status: '0',
         msg: '不存在',
         result: ''
@@ -225,7 +214,7 @@ router.get('/getTagBaseAttrList', (req, res, next) => {
     .then((Tag) => {
       if (Tag.length) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: Tag
         })
@@ -241,10 +230,10 @@ router.get('/getTagBaseAttrList', (req, res, next) => {
 
 // 数据实体基本属性详情查询
 router.get('/getTagBaseAttrDetail:id', (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   Tag.find({
     id
-    })
+  })
     .sort({
       '_id': -1
     })
@@ -253,7 +242,7 @@ router.get('/getTagBaseAttrDetail:id', (req, res, next) => {
     .then((Tag) => {
       if (Tag) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: Tag
         })
@@ -285,9 +274,9 @@ router.post('/createTagBaseAttr', (req, res, next) => {
     modifierr,
     modifyTime
   } = req.body
-  Tag.findOne({nameEn}).then((result) => {
+  Tag.findOne({ nameEn }).then((result) => {
     if (result) {
-      return res.status(400).json({
+      return res.status(200).json({
         status: '0',
         msg: '产品已存在',
         result: ''
@@ -320,7 +309,7 @@ router.post('/createTagBaseAttr', (req, res, next) => {
           })
         } else {
           res.json({
-            status: '1',
+            status: 200,
             msg: '产品创建成功',
             result: ''
           })
@@ -332,7 +321,7 @@ router.post('/createTagBaseAttr', (req, res, next) => {
 
 // 数据实体基本属性更新
 router.put('/updateTagBaseAttr', (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   Tag.updateOne({
     id
   }, req.body, (err, Tag) => {
@@ -348,18 +337,18 @@ router.put('/updateTagBaseAttr', (req, res, next) => {
 
 // 数据实体基本属性删除
 router.delete('/updateTagBaseAttrDelete', (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   Tag.deleteOne({
     _id: id
   }).then((Tag) => {
     if (Tag) {
       res.status(200).json({
-        status: '1',
+        status: 200,
         msg: '删除成功',
         result: ''
       })
     } else {
-      res.status(400).json({
+      res.status(200).json({
         status: '0',
         msg: '不存在',
         result: ''
@@ -385,7 +374,7 @@ router.get('/getTagExtendAttrList', (req, res, next) => {
     .then((Tag) => {
       if (Tag.length) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: Tag
         })
@@ -401,10 +390,10 @@ router.get('/getTagExtendAttrList', (req, res, next) => {
 
 // 数据实体基本属性详情查询
 router.get('/getTagBaseAttrDetail:id', (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   Tag.find({
     id
-    })
+  })
     .sort({
       '_id': -1
     })
@@ -413,7 +402,7 @@ router.get('/getTagBaseAttrDetail:id', (req, res, next) => {
     .then((Tag) => {
       if (Tag) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: Tag
         })
@@ -445,9 +434,9 @@ router.post('/createTagExtendAttr', (req, res, next) => {
     modifierr,
     modifyTime
   } = req.body
-  Tag.findOne({nameEn}).then((result) => {
+  Tag.findOne({ nameEn }).then((result) => {
     if (result) {
-      return res.status(400).json({
+      return res.status(200).json({
         status: '0',
         msg: '产品已存在',
         result: ''
@@ -480,7 +469,7 @@ router.post('/createTagExtendAttr', (req, res, next) => {
           })
         } else {
           res.json({
-            status: '1',
+            status: 200,
             msg: '产品创建成功',
             result: ''
           })
@@ -492,7 +481,7 @@ router.post('/createTagExtendAttr', (req, res, next) => {
 
 // 数据实体扩展属性更新
 router.put('/updateTagExtendAttr', (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   Tag.updateOne({
     id
   }, req.body, (err, Tag) => {
@@ -508,18 +497,18 @@ router.put('/updateTagExtendAttr', (req, res, next) => {
 
 // 数据实体基本属性删除
 router.delete('/updateTagExtendAttrDelete', (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   Tag.deleteOne({
     _id: id
   }).then((Tag) => {
     if (Tag) {
       res.status(200).json({
-        status: '1',
+        status: 200,
         msg: '删除成功',
         result: ''
       })
     } else {
-      res.status(400).json({
+      res.status(200).json({
         status: '0',
         msg: '不存在',
         result: ''
@@ -541,7 +530,7 @@ router.get('/getTagParentAttrList', (req, res, next) => {
     .then((Tag) => {
       if (Tag.length) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: Tag
         })
@@ -557,10 +546,10 @@ router.get('/getTagParentAttrList', (req, res, next) => {
 
 // 数据实体父模型属性详情查询
 router.get('/getTagParentAttrDetail:id', (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   Tag.find({
     id
-    })
+  })
     .sort({
       '_id': -1
     })
@@ -569,7 +558,7 @@ router.get('/getTagParentAttrDetail:id', (req, res, next) => {
     .then((Tag) => {
       if (Tag) {
         res.json({
-          status: '1',
+          status: 200,
           msg: '',
           result: Tag
         })
