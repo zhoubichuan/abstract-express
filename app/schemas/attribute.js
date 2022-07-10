@@ -5,19 +5,19 @@ const ObjectId = Schema.Types.ObjectId
 const crypto = require('crypto')
 const uuid = require('node-uuid')
 
-const relationEntitySchema = new mongoose.Schema({
-  nameEn:{
+const attributeSchema = new mongoose.Schema({
+  nameEn: {
     unique: true,
-    type:String
+    type: String
   },
-  name:String,
-  descriptEn:String,
-  descript:String,
-  parentId:String,
-  modelType:String,
-  storeType:Boolean,
-  inherit:Boolean,
-  tableName:String,
+  name: String,
+  descriptEn: String,
+  descript: String,
+  parentId: String,
+  modelType: String,
+  storeType: Boolean,
+  inherit: Boolean,
+  tableName: String,
   code: {
     type: String,
     defalut: uuid.v1()
@@ -49,22 +49,25 @@ const relationEntitySchema = new mongoose.Schema({
   modifyTime: {
     type: Date,
     defalut: Date.now()
+  },
+  img: {
+    type: String,
   }
 });
 
-relationEntitySchema.pre('save', function(next) {
+attributeSchema.pre('save', function (next) {
   if (this.isNew) {
     this.createTime = this.modifyTime = Date.now()
     this.version = 'A'
     this.state = 'iwork'
-    this.code = 'RE'+uuid.v1()
+    this.code = 'AB' + uuid.v1()
     this.modifier = this.creater = 'zbc'
     this.id = uuid.v1()
   } else {
     this.modifyTime = Date.now()
-    this.modifier='小王'
+    this.modifier = '小王'
   }
   next()
 })
 
-module.exports = relationEntitySchema
+module.exports = attributeSchema

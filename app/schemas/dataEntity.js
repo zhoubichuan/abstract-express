@@ -57,7 +57,7 @@ dataEntitySchema.pre('save', function(next) {
     this.createTime = this.modifyTime = Date.now()
     this.version = 'A'
     this.state = 'iwork'
-    this.code = 'DM'+uuid.v1()
+    this.code = 'DE'+uuid.v1()
     this.modifier = this.creater = 'zbc'
     this.id = uuid.v1()
   } else {
