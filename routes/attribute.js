@@ -600,4 +600,21 @@ router.post('/image', (req, res, next) => {
     })
   })
 })
+router.post('/video', (req, res, next) => {
+  let form = new formidable.IncomingForm()
+  form.encoding = 'utf-8' // 编码
+  form.keepExtensions = true // 保留扩展名
+  form.uploadDir = path.join(__dirname, '../public/images/') //文件存储路径 最后要注意加 '/' 否则会被存在public下
+  form.parse(req, (err, fileds, files) => { // 解析 formData 数据
+    if (err) return next(err)
+    let oldPath = files.file.filepath //获取文件路径 ~/public/images/<随机生成的文件名>.<扩展名>
+    let type = files.file.mimetype.split('/')[1]
+    let imgname = files.file.newFilename + '.' + type //前台上传时的文件名 也就是文件原本的名字
+    let newPath = path.join(path.dirname(oldPath), imgname)
+    fs.rename(oldPath, newPath, (err) => {
+      if (err) return next(err)
+      res.json({ avatar: imgname })
+    })
+  })
+})
 module.exports = router
