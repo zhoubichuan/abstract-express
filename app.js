@@ -100,7 +100,8 @@ app.use(session({
 
 // 解析token获取用户信息
 app.use(function (req, res, next) {
-  var token = req.headers['authorization']; if (token == undefined) {
+  var token = req.headers['authorization'];
+  if (token == undefined) {
     return next();
   } else {
     verToken(token).then((data) => {

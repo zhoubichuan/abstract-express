@@ -50,7 +50,10 @@ const attributeSchema = new mongoose.Schema({
     type: Date,
     defalut: Date.now()
   },
-  img: {
+  image: {
+    type: String,
+  },
+  video: {
     type: String,
   }
 });

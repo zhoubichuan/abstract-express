@@ -16,7 +16,6 @@ var $filterObj = function (target, keys) {
   })
   return result
 }
-
 var Attribute = require('./../app/models/attribute')
 // 数据实体列表查询
 router.post('/getAttributeList', async (req, res, next) => {
@@ -36,7 +35,6 @@ router.post('/getAttributeList', async (req, res, next) => {
     curPage = 1,
     pageSize = 20
   } = req.body
-  console.log(req.body)
   let conditions = {}
   code && (conditions.code = new RegExp(code, 'i'))
   name && (conditions.name = new RegExp(name, 'i'))
@@ -89,7 +87,7 @@ router.post('/getAttributeDetail', (req, res, next) => {
     .then((result) => {
       if (result) {
         console.log(result)
-        let keys = ['code', 'code', 'state', 'nameEn', 'name', 'descriptEn', 'descript', 'parentId', 'storeType', 'modelType', 'inherit', 'tableName', 'version', 'creater', 'creatTime', 'modifier', 'modifyTime']
+        let keys = ['code', 'code', 'state', 'nameEn', 'name', 'descriptEn', 'descript', 'parentId', 'storeType', 'modelType', 'inherit', 'tableName', 'version', 'creater', 'creatTime', 'modifier', 'modifyTime', 'image', 'video']
         let data = $filterObj(result, keys)
         res.json({
           status: 200,
@@ -118,6 +116,8 @@ router.post('/createAttribute', async (req, res, next) => {
     storeType,
     inherit,
     tableName,
+    image,
+    video
   } = req.body
   let result = await Attribute.findOne({ nameEn })
   if (result) {
@@ -136,7 +136,9 @@ router.post('/createAttribute', async (req, res, next) => {
       modelType,
       storeType,
       inherit,
-      tableName
+      tableName,
+      image,
+      video
     };
 
     let AttributeEntity = new Attribute(newAttribute)
@@ -160,7 +162,7 @@ router.post('/createAttribute', async (req, res, next) => {
 
 // 更新数据实体
 router.put('/updateAttribute', (req, res, next) => {
-  let keys = ['id', 'nameEn', 'name', 'descriptEn', 'descript', 'parentId', 'storeType', 'modelType', 'inherit', 'tableName']
+  let keys = ['id', 'nameEn', 'name', 'descriptEn', 'descript', 'parentId', 'storeType', 'modelType', 'inherit', 'tableName', 'image', 'video']
   let params = $filterObj(req.body, keys)
   Attribute.updateOne({ id: params.id }, params, (err, result) => {
     if (err) {
@@ -367,13 +369,6 @@ router.delete('/updateAttributeBaseAttrDelete', (req, res, next) => {
     }
   })
 })
-
-
-
-
-
-
-
 // 数据实体扩展属性列表查询
 router.get('/getAttributeExtendAttrList', (req, res, next) => {
   Attribute.find({})
@@ -596,7 +591,7 @@ router.post('/image', (req, res, next) => {
     let newPath = path.join(path.dirname(oldPath), imgname)
     fs.rename(oldPath, newPath, (err) => {
       if (err) return next(err)
-      res.json({ avatar: imgname })
+      res.json({ url: 'http://localhost:7005/images/' + imgname })
     })
   })
 })
@@ -613,7 +608,7 @@ router.post('/video', (req, res, next) => {
     let newPath = path.join(path.dirname(oldPath), imgname)
     fs.rename(oldPath, newPath, (err) => {
       if (err) return next(err)
-      res.json({ avatar: imgname })
+      res.json({ url: 'http://localhost:7005/images/' + imgname })
     })
   })
 })
