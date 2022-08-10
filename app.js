@@ -92,7 +92,7 @@ app.use(session({
     maxAge: 24 * 3600 * 1000 * 7
   },
   store: new MongoStore({
-    url: 'mongodb://81.71.127.69:27017/blog'
+    url: 'mongodb://zhoubichuan.com:27017/blog'
   }),
   resave: false,
   saveUninitialized: false
