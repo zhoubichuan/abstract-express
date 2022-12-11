@@ -1,5 +1,5 @@
 module.exports = {
-    dbUrl:'mongodb://81.71.127.69:27017/blog',
+    dbUrl:'mongodb://zhoubichuan.com:27017/blog',
     secret:'zhufeng'
 }
 // module.exports = {

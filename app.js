@@ -4,7 +4,7 @@ var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var session = require('express-session')
-var MongoStore = require('connect-mongo')(session)
+// var MongoStore = require('connect-mongo')(session)
 var bodyParser = require('body-parser')
 
 var index = require('./routes/index')
@@ -53,15 +53,17 @@ const verToken = function (token) {
 var app = express()
 
 var mongoose = require('mongoose')
+mongoose.set("strictQuery", false)
 global.__base = __dirname + '/'
 mongoose.Promise = global.Promise
-const dburl = "mongodb://localhost:27017/blog";
+const dburl = "mongodb://zhoubichuan.com:27017/blog";
 
 mongoose.connect(dburl, {
+  authSource: "admin", // 权限认证（添加这个属性！！！！！）
+  user: "root",
+  pass: "ZBCzbc123",
+  bufferCommands: true,
   useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-  useUnifiedTopology: true
 }).then(() => console.log('Database Successful！')).catch((err) => console.log(err));
 
 
@@ -91,9 +93,9 @@ app.use(session({
   cookie: {
     maxAge: 24 * 3600 * 1000 * 7
   },
-  store: new MongoStore({
-    url: 'mongodb://zhoubichuan.com:27017/blog'
-  }),
+  // store: new MongoStore({
+  //   url: 'mongodb://zhoubichuan.com:27017/blog'
+  // }),
   resave: false,
   saveUninitialized: false
 }))

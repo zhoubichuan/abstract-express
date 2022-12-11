@@ -312,9 +312,9 @@ router.post('/modify/psd', (req, res, next) => {
 6、服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据
  */
 router.post('/login', (req, res, next) => {
+
 	var account = req.body.account,
 		password = req.body.password;
-
 	User.findOne({ 'account': account })
 		.populate('info', 'username avatar')
 		.exec()
