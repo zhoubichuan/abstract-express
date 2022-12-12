@@ -1,27 +1,14 @@
 var express = require('express')
 var path = require('path')
-var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var session = require('express-session')
 // var MongoStore = require('connect-mongo')(session)
 var bodyParser = require('body-parser')
-
-var index = require('./routes/index')
-var users = require('./routes/users')
-var clients = require('./routes/clients')
-var tags = require('./routes/tags')
-var pays = require('./routes/pay')
-var orders = require('./routes/order')
-var products = require('./routes/product')
-let dataEntity = require('./routes/dataEntity')
-let attribute = require('./routes/attribute')
-let relationEntity = require('./routes/relationEntity')
-let dataInstance = require('./routes/dataInstance')
-let systemTag = require('./routes/systemTag')
+var routes = require('./routes/index')
 const jwt = require('jsonwebtoken');
+const mongodb = require('mongodb');
 const expressJwt = require('express-jwt')
-
 //秘钥
 var signkey = 'mes_qdhd_mobile';
 //生成token
@@ -52,28 +39,7 @@ const verToken = function (token) {
 
 var app = express()
 
-var mongoose = require('mongoose')
-mongoose.set("strictQuery", false)
-global.__base = __dirname + '/'
-mongoose.Promise = global.Promise
-const dburl = "mongodb://zhoubichuan.com:27017/blog";
 
-mongoose.connect(dburl, {
-  authSource: "admin", // 权限认证（添加这个属性！！！！！）
-  user: "root",
-  pass: "ZBCzbc123",
-  bufferCommands: true,
-  useNewUrlParser: true,
-}).then(() => console.log('Database Successful！')).catch((err) => console.log(err));
-
-
-
-mongoose.connection.on('error', () => {
-  console.log('Mongodb connected fail!')
-})
-mongoose.connection.on('disconnected', () => {
-  console.log('Mongodb disconnected!')
-})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -81,7 +47,6 @@ app.set('view engine', 'jade')
 app.set('port', port)
 
 // uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -143,29 +108,17 @@ app.use((req, res, next) => {
 //   path: ['/', '/users/login']//除了这个地址，其他的URL都需要验证
 // }));
 
-app.use('/', index)
-app.use('/users', users)
-app.use('/clients', clients)
-app.use('/tag', tags)
-app.use('/pay', pays)
-app.use('/order', orders)
-app.use('/product', products)
-app.use('/dataEntity', dataEntity)
-app.use('/attribute', attribute)
-app.use('/relationEntity', relationEntity)
-app.use('/dataInstance', dataInstance)
-app.use('/systemBaseInfo', systemTag)
 
-// catch 404 and forward to error handler
+Object.keys(routes).forEach(key => {
+  app.use('/api/' + key, routes[key])
+})
 app.use(function (req, res, next) {
   var err = new Error('Not Found')
   err.status = 404
   next(err)
 })
 
-// error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
   if (err.name === 'UnauthorizedError') {
@@ -176,7 +129,6 @@ app.use(function (err, req, res, next) {
     })
     return
   }
-  // render the error page
   res.status(err.status || 500)
   res.render('error')
 })
@@ -186,11 +138,9 @@ var port = normalizePort(process.env.PORT || '7005');
 function normalizePort(val) {
   var port = parseInt(val, 10);
   if (isNaN(port)) {
-    // named pipe
     return val;
   }
   if (port >= 0) {
-    // port number
     return port;
   }
   return false;
