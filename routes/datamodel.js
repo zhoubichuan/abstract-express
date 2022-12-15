@@ -6,9 +6,9 @@ var multipartMiddleware = require('connect-multiparty')()
 var {
   signRequired,
   adminRole
-} = require('../../../middleware/auth.js')
+} = require('../middleware/auth.js')
 
-var Product = require('./../../../app/models/dataEntity/dataentity/getList')
+var Product = require('../app/models/dataEntity.js')
 router.use(signRequired)
 
 //查询所有的 tags

@@ -1,13 +1,9 @@
-module.exports = {
-  users: require('./users'),
-  clients: require('./clients'),
-  tags: require('./tags'),
-  pays: require('./pay'),
-  orders: require('./order'),
-  products: require('./product'),
-  dataEntity: require('./dataEntity'),
-  attribute: require('./attribute'),
-  relationEntity: require('./relationEntity'),
-  dataInstance: require('./dataInstance'),
-  systemTag: require('./systemTag')
-};
+const fs = require('fs')
+const files = fs.readdirSync(__dirname)
+let routes = {}
+for (file of files) {
+  if (file !== 'index.js') {
+    routes[file] = require('./' + file)
+  }
+}
+module.exports = routes
