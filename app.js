@@ -7,7 +7,7 @@ var session = require('express-session')
 var bodyParser = require('body-parser')
 var routes = require('./routes/index')
 const jwt = require('jsonwebtoken');
-const mongodb = require('mongodb');
+const mongodb = require('./mongodb.js');
 const expressJwt = require('express-jwt')
 //秘钥
 var signkey = 'mes_qdhd_mobile';
@@ -110,7 +110,7 @@ app.use((req, res, next) => {
 
 
 Object.keys(routes).forEach(key => {
-  app.use('/api/' + key, routes[key])
+  app.use('/api', routes[key])
 })
 app.use(function (req, res, next) {
   var err = new Error('Not Found')

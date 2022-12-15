@@ -123,7 +123,7 @@ router.get('/:id', (req, res, next) => {
 		})
 })
 // 添加用户
-router.post('/add', (req, res, next) => {
+router.post('/users/add', (req, res, next) => {
 	var account = req.body.account,
 		password = req.body.password,
 		avatar = req.body.avatar,
@@ -311,7 +311,7 @@ router.post('/modify/psd', (req, res, next) => {
 5、客户端每次向服务端请求资源的时候需要带着服务端签发的 Token
 6、服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据
  */
-router.post('/login', (req, res, next) => {
+router.post('/login/account', (req, res, next) => {
 
 	var account = req.body.account,
 		password = req.body.password;
