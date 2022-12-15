@@ -33,4 +33,4 @@ jobs:
             export PATH=$PATH:$NODE_HOME/bin
             npm install
             pm2 delete abstract-express
-            pm2 start --name abstract-express npm -- run dev
+            pm2 start app.js --name abstract-express
