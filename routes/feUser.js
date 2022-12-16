@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var User = require('./../app/models/User')
+var User = require('../app/models/user.js')
 var { handleError } = require('./../public/util/handleError')
 
 router.get('/author', (req, res, next) => {
