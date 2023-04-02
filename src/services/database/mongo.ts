@@ -23,7 +23,7 @@ async function connectDB(): Promise<mongoose.Connection> {
     mongoose.set('debug', (NODE_ENV === 'development'))
 
     await mongoose.connect(dbURL, options)
-    console.log('<<<< 连接 MongoDB >>>>')
+    console.log('<<<< 连接 MongoDB >>>>',dbURL)
 
     mongoose.Promise = global.Promise // Get Mongoose to use the global promise library
     const db: mongoose.Connection = mongoose.connection    // Get the default connection
