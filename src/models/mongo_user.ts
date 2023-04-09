@@ -113,7 +113,7 @@ export default baseModel
  * @openapi
  * components:
  *   schemas:
- *     Sample:
+ *     User:
  *       type: object
  *       required:
  *         - username
@@ -121,10 +121,64 @@ export default baseModel
  *       properties:
  *         username:
  *           type: string
- *         age:
+ *         autoLogin:
+ *           type: boolean
+ *           description: User age
+ *         password:
+ *           type: string
+ *         type:
  *           type: integer
  *           description: User age
  *       example:
  *         username: 'Amin'
  *         age: 34
+ *     Error:
+ *       type: object
+ *       properties:
+ *         statusCode:
+ *           type: integer
+ *         message:
+ *           type: string
+ *         body:
+ *           type: object
+ *       required:
+ *         - statusCode
+ *         - message
+ *       example:
+ *         statusCode: 400
+ *         message: 'Some Error ...'
+ *         body: null
+ *     Success:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
+ *           description: Response Status
+ *         result:
+ *           $ref: '#/components/schemas/User'
+ *   responses:
+ *     Success:
+ *       description: 请求成功响应
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Success'
+ *     BadRequest:
+ *       description:  错误请求提要
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Error'
+ *     NotFound:
+ *       description: 找不到指定的资源
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Error'
+ *     Unauthorized:
+ *       description: Unauthorized access
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Error'
  */

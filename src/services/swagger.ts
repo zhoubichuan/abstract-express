@@ -17,7 +17,7 @@ const swaggerDefinition = {
     license: { name: license, url: 'http://aminabbasi.com/licenses' },
     contact: { name: author, email: 'amin.abbasi.rs@gmail.com' }
   },
-  servers: [ { url: `${url}/v1` } ],
+  servers: [ { url: `${url}` } ],
   // basePath: '/v1',
   // schemes: ['http', 'https'],
   consumes: ['application/json'],

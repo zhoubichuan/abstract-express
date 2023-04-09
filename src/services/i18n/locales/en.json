@@ -21,5 +21,6 @@
 	"Internal Server Error": "Internal Server Error",
 	"Cast to ObjectId failed for value \"login\" (type string) at path \"_id\" for model \"user\"": "Cast to ObjectId failed for value \"login\" (type string) at path \"_id\" for model \"user\"",
 	"Cast to ObjectId failed for value \"list\" (type string) at path \"_id\" for model \"user\"": "Cast to ObjectId failed for value \"list\" (type string) at path \"_id\" for model \"user\"",
-	"Cast to ObjectId failed for value \"current\" (type string) at path \"_id\" for model \"user\"": "Cast to ObjectId failed for value \"current\" (type string) at path \"_id\" for model \"user\""
+	"Cast to ObjectId failed for value \"current\" (type string) at path \"_id\" for model \"user\"": "Cast to ObjectId failed for value \"current\" (type string) at path \"_id\" for model \"user\"",
+	"connection <monitor> to 81.71.127.69:27017 timed out": "connection <monitor> to 81.71.127.69:27017 timed out"
 }

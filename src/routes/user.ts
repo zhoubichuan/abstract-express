@@ -14,7 +14,7 @@ import { checkToken, checkRole } from '../middlewares/check_auth'
 // delete:              DELETE    - /user
 // a secure action:     POST      - /user/:userId/secure-action
 // login:               POST      - /user/login
-// current:             POST      - /user/current
+// current:             GET      - /user/current
 
 // ---------------------------------- Define All Sample Routes Here ----------------------------------
 
@@ -30,7 +30,7 @@ import { checkToken, checkRole } from '../middlewares/check_auth'
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Sample'
+ *               $ref: '#/components/schemas/User'
  *       responses:
  *         "200":
  *           $ref: '#/components/responses/Success'
@@ -65,7 +65,7 @@ router.route('').post(Validator.create, Controller.create)
  *                         total:
  *                           user: integer
  *                         list:
- *                           $ref: '#/components/schemas/Sample'
+ *                           $ref: '#/components/schemas/User'
  *         "400":
  *           $ref: '#/components/responses/BadRequest'
  */
@@ -186,7 +186,7 @@ router.route('/:userId/secure-action').post(
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Sample'
+ *               $ref: '#/components/schemas/User'
  *       responses:
  *         "200":
  *           $ref: '#/components/responses/Success'
@@ -206,13 +206,13 @@ router.route('/login').post(Validator.login, Controller.login)
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Sample'
+ *               $ref: '#/components/schemas/User'
  *       responses:
  *         "200":
  *           $ref: '#/components/responses/Success'
  *         "400":
  *           $ref: '#/components/responses/BadRequest'
  */
-router.route('/current').get(Controller.current)
+router.route('/current').post(Controller.current)
 
 export default router

@@ -66,19 +66,19 @@ export default router
  * components:
  *   responses:
  *     Success:
- *       description: Successful action
+ *       description: 请求成功响应
  *       content:
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/Success'
  *     BadRequest:
- *       description: Bad request schema
+ *       description:  错误请求提要
  *       content:
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/Error'
  *     NotFound:
- *       description: The specified resource was not found
+ *       description: 找不到指定的资源
  *       content:
  *         application/json:
  *           schema:
