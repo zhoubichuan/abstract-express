@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node src/server.ts --trace-warnings",
     "dev": "npm run start",
-    "test": "jest --updateSnapshot --detectOpenHandles --coverage --forceExit --verbose"
+    "test": "jest --updateSnapshot --detectOpenHandles --coverage --forceExit --verbose",
+    "build":"tsc"
   },
   "repository": {
     "type": "git",
