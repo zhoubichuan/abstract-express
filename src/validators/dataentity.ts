@@ -13,14 +13,14 @@ const exportResult = {
       nameEn: Joi.string().required().description('英文名称'),
       descript: Joi.string().required().description('中文描述'),
       descriptEn: Joi.string().required().description('英文描述'),
-      parentId: Joi.string().required().description('父级id'), modelType: Joi.string().required().description('模型类型'),
-      storeType: Joi.string().required().description('存储类型'),
-      inherit: Joi.string().required().description('继承类型'),
+      parentId: Joi.boolean().required().description('父级id'),
+      modelType: Joi.string().required().description('模型类型'),
+      storeType: Joi.boolean().required().description('存储类型'),
+      inherit: Joi.boolean().required().description('继承类型'),
       tableName: Joi.string().required().description('表名称'),
-      image: Joi.string().required().description('图片'),
-      video: Joi.string().description('视频'),
+      // image: Joi.string().required().description('图片'),
+      // video: Joi.string().description('视频'),
     }),
-    query: Joi.object({})
   }),
 
   // 列表字段

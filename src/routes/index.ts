@@ -27,7 +27,7 @@ import userRouter from './user'
 
 // router.use('/samples', sampleRouter)
 router.use('/attribute', attributeRouter)
-router.use('/dataentity', dataentityRouter)
+router.use('/dataEntity', dataentityRouter)
 router.use('/feuser', feuserRouter)
 router.use('/instance', datainstanceRouter)
 router.use('/model', datamodelRouter)
