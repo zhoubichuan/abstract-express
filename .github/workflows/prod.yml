@@ -34,4 +34,4 @@ jobs:
             npm install
             pm2 delete abstract-express
             npm run build
-            pm2 start dist/app.js --name abstract-express
+            pm2 start dist/server.js --name abstract-express
