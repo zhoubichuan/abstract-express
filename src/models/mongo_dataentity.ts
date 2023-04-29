@@ -10,7 +10,7 @@ declare module './mongo_base' {
   interface Model {
     // Add new methods to class ...
     greetings: (dataentityId: string) => Promise<string>
-    findByVideo: (video: string) => Promise<IDataentity>
+    // findByVideo: (video: string) => Promise<IDataentity>
   }
 }
 
@@ -23,11 +23,11 @@ Model.prototype.greetings = async function(dataentityId: string): Promise<string
 }
 
 /** Find Model By Age */
-Model.prototype.findByVideo = async function(video: string): Promise<IDataentity> {
-  const sample: IDataentity | null = await this.model.findOne({ video })
-  if(!sample) throw new Errors.NotFound(MESSAGES.MODEL_NOT_FOUND)
-  return sample
-}
+// Model.prototype.findByVideo = async function(video: string): Promise<IDataentity> {
+//   const sample: IDataentity | null = await this.model.findOne({ video })
+//   if(!sample) throw new Errors.NotFound(MESSAGES.MODEL_NOT_FOUND)
+//   return sample
+// }
 
 
 // -----------------------------------------------------------------------------------
@@ -43,13 +43,13 @@ export interface IDataentity extends IModel {
   storeType:string
   inherit:string
   tableName:string
-  image:string
-  video:string
+  // image:string
+  // video:string
 }
 
 export interface IDataentityUpdate extends IModelUpdate {
-  name? : IDataentity['name']
-  video?  : IDataentity['video']
+  // name? : IDataentity['name']
+  // video?  : IDataentity['video']
 }
 
 
@@ -61,13 +61,13 @@ const definition: SchemaDefinition = {
   nameEn: { type: mongoose.Schema.Types.String, required: true, unique: true },
   descript: { type: mongoose.Schema.Types.String, required: true, unique: true },
   descriptEn: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  parentId: { type: mongoose.Schema.Types.String, required: true, unique: true },
+  parentId: { type: mongoose.Schema.Types.Boolean, required: true, unique: true },
   modelType: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  storeType: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  inherit: { type: mongoose.Schema.Types.String, required: true, unique: true },
+  storeType: { type: mongoose.Schema.Types.Boolean, required: true, unique: true },
+  inherit: { type: mongoose.Schema.Types.Boolean, required: true, unique: true },
   tableName: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  image: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  video:  { type: mongoose.Schema.Types.String, default: '' },
+  // image: { type: mongoose.Schema.Types.String },
+  // video:  { type: mongoose.Schema.Types.String},
 }
 
 const baseModel: Model = new Model(definition)

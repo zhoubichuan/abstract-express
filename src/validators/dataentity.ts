@@ -8,7 +8,7 @@ const exportResult = {
 
   // 创建字段
   create: validate({
-    body: Joi.object({
+    params: Joi.object({
       name: Joi.string().required().description('中文名称'),
       nameEn: Joi.string().required().description('英文名称'),
       descript: Joi.string().required().description('中文描述'),
@@ -18,7 +18,7 @@ const exportResult = {
       storeType: Joi.boolean().required().description('存储类型'),
       inherit: Joi.boolean().required().description('继承类型'),
       tableName: Joi.string().required().description('表名称'),
-      // image: Joi.string().required().description('图片'),
+      // image: Joi.string().description('图片'),
       // video: Joi.string().description('视频'),
     }),
   }),
