@@ -21,7 +21,7 @@ import { checkToken, checkRole } from '../middlewares/check_auth'
 /**
  * @openapi
  * paths:
- *   /user/:
+ *   /user:
  *     post:
  *       summary: 创建用户
  *       tags: [用户信息]
@@ -42,7 +42,7 @@ router.route('').post(Validator.create, Controller.create)
 /**
  * @openapi
  * paths:
- *   /user/:
+ *   /user:
  *     get:
  *       summary: 获取用户列表
  *       tags: [用户信息]

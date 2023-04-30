@@ -28,7 +28,7 @@ import { checkToken, checkRole }  from '../middlewares/check_auth'
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Sample'
+ *               $ref: '#/components/schemas/DataEntity'
  *       responses:
  *         "200":
  *           $ref: '#/components/responses/Success'

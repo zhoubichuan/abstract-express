@@ -8,7 +8,7 @@ const exportResult = {
 
   // 创建字段
   create: validate({
-    params: Joi.object({
+    body: Joi.object({
       name: Joi.string().required().description('中文名称'),
       nameEn: Joi.string().required().description('英文名称'),
       descript: Joi.string().required().description('中文描述'),
