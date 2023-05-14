@@ -7,11 +7,12 @@ import Dataentity, { IDataentity } from '../models/mongo_dataentity'
 import { IQueryData } from '../models/mongo_base'
 
 const exportResult = {
-
   // 创建
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const data: IDataentity = req.body
+      const id: string = await Dataentity.getNextSequenceValue() || '1'
+      data.code = id
       const result = await Dataentity.add(data)
 
       // ---- Use Socket.io
@@ -20,7 +21,9 @@ const exportResult = {
 
       res.result = (result as any)._doc
       next(res)
-    } catch (err) { next(err) }
+    } catch (err) {
+      next(err)
+    }
   },
 
   // 列表查询
@@ -30,12 +33,17 @@ const exportResult = {
       const result = await Dataentity.list(query)
       res.result = result
       next(res)
+    } catch (err) {
+      next(err)
     }
-    catch (err) { next(err) }
   },
 
   // 查询详情
-  async details(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async details(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
       const dataentityId: string = req.params.dataentityId
       // const result = await Sample.details(dataentityId)
@@ -45,8 +53,9 @@ const exportResult = {
 
       res.result = (result as any)._doc
       next(res)
+    } catch (err) {
+      next(err)
     }
-    catch (err) { next(err) }
   },
 
   // 更新
@@ -56,19 +65,25 @@ const exportResult = {
       const result = await Dataentity.updateById(dataentityId, req.body)
       res.result = (result as any)._doc
       next(res)
+    } catch (err) {
+      next(err)
     }
-    catch (err) { next(err) }
   },
 
   // 软删除
-  async archive(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async archive(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
       const dataentityId: string = req.params.dataentityId
       const result = await Dataentity.softDelete(dataentityId)
       res.result = (result as any)._doc
       next(res)
+    } catch (err) {
+      next(err)
     }
-    catch (err) { next(err) }
   },
 
   // 删除
@@ -78,24 +93,30 @@ const exportResult = {
       const result = await Dataentity.remove(dataentityId)
       res.result = result
       next(res)
+    } catch (err) {
+      next(err)
     }
-    catch (err) { next(err) }
   },
 
   // 安全认证
-  async secureAction(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async secureAction(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
       // Check Sample in Auth Header
-      if (req.user.role !== 'admin') throw new Errors.Unauthorized(MESSAGES.UNAUTHORIZED)
+      if (req.user.role !== 'admin')
+        throw new Errors.Unauthorized(MESSAGES.UNAUTHORIZED)
 
       const dataentityId: string = req.params.dataentityId
       const result = await Dataentity.details(dataentityId)
       res.result = (result as any)._doc
       next(res)
+    } catch (err) {
+      next(err)
     }
-    catch (err) { next(err) }
-  },
-
+  }
 }
 
 export default exportResult

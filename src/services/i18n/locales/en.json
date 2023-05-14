@@ -23,5 +23,8 @@
 	"Cast to ObjectId failed for value \"list\" (type string) at path \"_id\" for model \"user\"": "Cast to ObjectId failed for value \"list\" (type string) at path \"_id\" for model \"user\"",
 	"Cast to ObjectId failed for value \"current\" (type string) at path \"_id\" for model \"user\"": "Cast to ObjectId failed for value \"current\" (type string) at path \"_id\" for model \"user\"",
 	"connection <monitor> to 81.71.127.69:27017 timed out": "connection <monitor> to 81.71.127.69:27017 timed out",
-	"Unexpected token l in JSON at position 0": "Unexpected token l in JSON at position 0"
+	"Unexpected token l in JSON at position 0": "Unexpected token l in JSON at position 0",
+	"getaddrinfo ENOTFOUND zhoubichuan.com": "getaddrinfo ENOTFOUND zhoubichuan.com",
+	"Query was already executed: dataentity.findOne({})": "Query was already executed: dataentity.findOne({})",
+	"Query was already executed: dataentity.findOne({ code: '0' })": "Query was already executed: dataentity.findOne({ code: '0' })"
 }

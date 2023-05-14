@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import Errors   from 'http-errors'
+import Errors from 'http-errors'
 import { IModel, IModelUpdate, Model, SchemaDefinition } from './mongo_base'
 import { MESSAGES } from '../services/i18n/types'
 
@@ -15,10 +15,12 @@ declare module './mongo_base' {
 }
 
 /** Get Model Mane */
-Model.prototype.greetings = async function(dataentityId: string): Promise<string> {
+Model.prototype.greetings = async function (
+  dataentityId: string
+): Promise<string> {
   const sample: IDataentity | null = await this.model.findById(dataentityId)
   console.log(sample)
-  if(!sample) throw new Errors.NotFound(MESSAGES.MODEL_NOT_FOUND)
+  if (!sample) throw new Errors.NotFound(MESSAGES.MODEL_NOT_FOUND)
   return 'Hi ' + sample.name + '!!'
 }
 
@@ -29,20 +31,20 @@ Model.prototype.greetings = async function(dataentityId: string): Promise<string
 //   return sample
 // }
 
-
 // -----------------------------------------------------------------------------------
 // ------------------------------ Your Sample Interface ------------------------------
 // -----------------------------------------------------------------------------------
 export interface IDataentity extends IModel {
-  name : string
-  nameEn:string
-  descript:string
-  descriptEn:string
-  parentId:string
-  modelType:string
-  storeType:string
-  inherit:string
-  tableName:string
+  code?:string
+  name: string
+  nameEn: string
+  descript: string
+  descriptEn: string
+  parentId: string
+  modelType: string
+  storeType: string
+  inherit: string
+  tableName: string
   // image:string
   // video:string
 }
@@ -52,11 +54,11 @@ export interface IDataentityUpdate extends IModelUpdate {
   // video?  : IDataentity['video']
 }
 
-
 // -----------------------------------------------------------------------------------
 // ---------------------- Your MongoDB Schema Model Definition -----------------------
 // -----------------------------------------------------------------------------------
 const definition: SchemaDefinition = {
+  code: { type: mongoose.Schema.Types.String },
   name: { type: mongoose.Schema.Types.String, required: true },
   nameEn: { type: mongoose.Schema.Types.String, required: true },
   descript: { type: mongoose.Schema.Types.String, required: true },
@@ -68,13 +70,25 @@ const definition: SchemaDefinition = {
   tableName: { type: mongoose.Schema.Types.String, required: true },
   // image: { type: mongoose.Schema.Types.String },
   // video:  { type: mongoose.Schema.Types.String},
+  creater: {
+    type: mongoose.Schema.Types.String,
+    default: ''
+  },
+  creatTime: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now
+  },
+  modifier: { type: mongoose.Schema.Types.String, default: '' },
+  modifyTime: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now
+  }
 }
 
 const baseModel: Model = new Model(definition)
 baseModel.model = mongoose.model<IDataentity>('dataentity', baseModel.schema)
 
 export default baseModel
-
 
 // -----------------------------------------------------------------------------------
 // ---------------------------- Swagger Models Definition ----------------------------
