@@ -12,7 +12,7 @@ const exportResult = {
       name: Joi.string().required().description('中文名称'),
       nameEn: Joi.string().required().description('英文名称'),
       descript: Joi.string().required().description('中文描述'),
-      descriptEn: Joi.string().required().description('英文描述'),
+      descriptEn: Joi.string().description('英文描述'),
       parentId: Joi.boolean().required().description('父级id'),
       modelType: Joi.string().required().description('模型类型'),
       storeType: Joi.boolean().required().description('存储类型'),

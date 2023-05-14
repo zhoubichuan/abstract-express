@@ -57,15 +57,15 @@ export interface IDataentityUpdate extends IModelUpdate {
 // ---------------------- Your MongoDB Schema Model Definition -----------------------
 // -----------------------------------------------------------------------------------
 const definition: SchemaDefinition = {
-  name: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  nameEn: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  descript: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  descriptEn: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  parentId: { type: mongoose.Schema.Types.Boolean, required: true, unique: true },
-  modelType: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  storeType: { type: mongoose.Schema.Types.Boolean, required: true, unique: true },
-  inherit: { type: mongoose.Schema.Types.Boolean, required: true, unique: true },
-  tableName: { type: mongoose.Schema.Types.String, required: true, unique: true },
+  name: { type: mongoose.Schema.Types.String, required: true },
+  nameEn: { type: mongoose.Schema.Types.String, required: true },
+  descript: { type: mongoose.Schema.Types.String, required: true },
+  descriptEn: { type: mongoose.Schema.Types.String },
+  parentId: { type: mongoose.Schema.Types.Boolean, required: true },
+  modelType: { type: mongoose.Schema.Types.String, required: true },
+  storeType: { type: mongoose.Schema.Types.Boolean, required: true },
+  inherit: { type: mongoose.Schema.Types.Boolean, required: true },
+  tableName: { type: mongoose.Schema.Types.String, required: true },
   // image: { type: mongoose.Schema.Types.String },
   // video:  { type: mongoose.Schema.Types.String},
 }
