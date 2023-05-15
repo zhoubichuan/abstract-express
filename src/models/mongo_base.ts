@@ -72,8 +72,8 @@ export class Model {
 
   async list(queryData: IQueryData): Promise<{ page: object; data: IModel[] }> {
     const { current, pageSize, sorter, filter, ...query } = queryData
-    const setSize: number =
-      pageSize > config.maxPageSizeLimit ? config.maxPageSizeLimit : pageSize
+    const setSize: number = pageSize
+    // > config.maxPageSizeLimit ? config.maxPageSizeLimit : pageSize
     const sortBy: ISort =
       sorter && sorter !== config.sortTypes.date
         ? { [config.sortTypes[sorter]]: 1 }
@@ -160,7 +160,7 @@ export class Model {
   async getNextSequenceValue() {
     return await this.model.findOneAndUpdate(
       { $inc: { code: 1 } },
-      { new: true, upsert: true }
+      { new: true }
     )
   }
 }

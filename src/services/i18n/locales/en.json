@@ -26,5 +26,6 @@
 	"Unexpected token l in JSON at position 0": "Unexpected token l in JSON at position 0",
 	"getaddrinfo ENOTFOUND zhoubichuan.com": "getaddrinfo ENOTFOUND zhoubichuan.com",
 	"Query was already executed: dataentity.findOne({})": "Query was already executed: dataentity.findOne({})",
-	"Query was already executed: dataentity.findOne({ code: '0' })": "Query was already executed: dataentity.findOne({ code: '0' })"
+	"Query was already executed: dataentity.findOne({ code: '0' })": "Query was already executed: dataentity.findOne({ code: '0' })",
+	"Unexpected token u in JSON at position 0": "Unexpected token u in JSON at position 0"
 }

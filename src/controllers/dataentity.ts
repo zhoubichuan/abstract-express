@@ -11,8 +11,8 @@ const exportResult = {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const data: IDataentity = req.body
-      const id: string = await Dataentity.getNextSequenceValue() || '1'
-      data.code = id
+      const {id}: any = await Dataentity.getNextSequenceValue()
+      data.code = id||'1'
       const result = await Dataentity.add(data)
 
       // ---- Use Socket.io
@@ -29,8 +29,8 @@ const exportResult = {
   // 列表查询
   async list(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const query: IQueryData = req.query as IQueryData
-      const result = await Dataentity.list(query)
+      const body: IQueryData = req.body as IQueryData
+      const result = await Dataentity.list(body)
       res.result = result
       next(res)
     } catch (err) {
