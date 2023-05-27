@@ -43,7 +43,6 @@ const exportResult = {
     params: Joi.object({
       attributeId: objectId.required().description('Sample ID')
     }),
-    query: Joi.object({})
   }),
 
   // 更新字段
@@ -55,15 +54,19 @@ const exportResult = {
     params: Joi.object({
       attributeId: objectId.required().description('Sample ID')
     }),
-    query: Joi.object({})
   }),
 
   // 软删除字段
   delete: validate({
     params: Joi.object({
-      attributeId: objectId.required().description('Sample ID')
+      attributeId: objectId.required().description('id字段')
     }),
     query: Joi.object({})
+  }),
+
+  // 批量删除字段
+  pathdelete: validate({
+    body: Joi.array()
   }),
 
   // 安全验证
@@ -71,7 +74,6 @@ const exportResult = {
     params: Joi.object({
       attributeId: objectId.required().description('Sample ID')
     }),
-    query: Joi.object({})
   }),
 
 }

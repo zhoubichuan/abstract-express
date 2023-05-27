@@ -97,7 +97,17 @@ const exportResult = {
       next(err)
     }
   },
-
+  // 批量删除
+  async pathdelete(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const ids: [] = req.body
+      const result = await Dataentity.removePatch(ids)
+      res.result = result
+      next(res)
+    } catch (err) {
+      next(err)
+    }
+  },
   // 安全认证
   async secureAction(
     req: Request,

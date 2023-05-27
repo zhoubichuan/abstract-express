@@ -37,6 +37,7 @@ export function validate(dataValidate: IDataValidate): (req: Request, _res: Resp
       let errors: IErrors = {}
 
       const keys: REQUEST_TYPE[] = Object.keys(dataValidate) as REQUEST_TYPE[]
+      console.log(req.originalUrl,keys)
       for(let i = 0; i < keys.length; i++) {
         const key: REQUEST_TYPE = keys[i]
         const schema: Joi.Schema = dataValidate[key] as Joi.Schema

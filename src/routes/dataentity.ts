@@ -8,10 +8,11 @@ import { checkToken, checkRole }  from '../middlewares/check_auth'
 
 // (action)             (verb)    (URI)
 // create:              POST      - /dataEntity
-// list:                GET       - /dataEntity
+// list:                POST      - /dataEntity
 // details:             GET       - /dataEntity/:dataEntityId
 // update:              PUT       - /dataEntity/:dataEntityId
 // delete:              DELETE    - /dataEntity/:dataEntityId
+// pathdelete:          DELETE    - /dataEntity/pathdelete
 // a secure action:     POST      - /dataEntity/:dataEntityId/secure-action
 
 // ---------------------------------- Define All Sample Routes Here ----------------------------------
@@ -141,6 +142,32 @@ router.route('/:dataEntityId').put(Validator.update, Controller.update)
  *           $ref: '#/components/responses/NotFound'
  */
 router.route('/:dataEntityId').delete(Validator.delete, Controller.delete)
+
+/**
+ * @openapi
+ * paths:
+ *   /dataEntity/{dataEntityId}/secure-action:
+ *     post:
+ *       summary: Secure Action For Sample
+ *       tags: [数据实体]
+ *       parameters:
+ *         - name: dataEntityId
+ *           in: path
+ *           description: Sample ID
+ *           required: true
+ *           schema:
+ *             type: string
+ *       responses:
+ *         "200":
+ *           $ref: '#/components/responses/Success'
+ *         "400":
+ *           $ref: '#/components/responses/BadRequest'
+ *         "401":
+ *           $ref: '#/components/responses/Unauthorized'
+ *         "404":
+ *           $ref: '#/components/responses/NotFound'
+ */
+router.route('/pathdelete').delete(Validator.pathdelete,Controller.pathdelete)
 
 /**
  * @openapi
