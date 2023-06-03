@@ -9,11 +9,11 @@ import { checkToken, checkRole }  from '../middlewares/check_auth'
 // (action)             (verb)    (URI)
 // create:              POST      - /dataEntity/create
 // list:                POST      - /dataEntity/list
-// details:             GET       - /dataEntity/:dataEntityId
-// update:              PUT       - /dataEntity/:dataEntityId
-// delete:              DELETE    - /dataEntity/:dataEntityId
+// details:             GET       - /dataEntity/:id
+// update:              PUT       - /dataEntity/:id
+// delete:              DELETE    - /dataEntity/:id
 // pathdelete:          DELETE    - /dataEntity/pathdelete
-// a secure action:     POST      - /dataEntity/:dataEntityId/secure-action
+// a secure action:     POST      - /dataEntity/:id/secure-action
 
 // ---------------------------------- Define All Sample Routes Here ----------------------------------
 
@@ -62,14 +62,14 @@ router.route('/list').post(Validator.list, Controller.list)
 /**
  * @openapi
  * paths:
- *   /dataEntity/{dataEntityId}:
+ *   /dataEntity/{id}:
  *     get:
  *       summary: 获取实体详情
  *       tags: [数据实体]
  *       parameters:
- *         - name: dataEntityId
+ *         - name: 6461042f7063568e742668d9
  *           in: path
- *           description: Sample ID
+ *           description: 数据实体id
  *           required: true
  *           schema:
  *             type: string
@@ -81,19 +81,19 @@ router.route('/list').post(Validator.list, Controller.list)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('/:dataEntityId').get(Validator.details, Controller.details)
+router.route('/:id').get(Validator.details, Controller.details)
 
 /**
  * @openapi
  * paths:
- *   /dataEntity/{dataEntityId}:
+ *   /dataEntity/{id}:
  *     put:
  *       summary: 更新实体
  *       tags: [数据实体]
  *       parameters:
- *         - name: dataEntityId
+ *         - name: 6461042f7063568e742668d9
  *           in: path
- *           description: Sample ID
+ *           description: 数据实体id
  *           required: true
  *           schema:
  *             type: string
@@ -105,18 +105,18 @@ router.route('/:dataEntityId').get(Validator.details, Controller.details)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('/:dataEntityId').put(Validator.update, Controller.update)
-// router.route('/:dataEntityId').patch(Validator.update, Controller.update)
+router.route('/:id').put(Validator.update, Controller.update)
+// router.route('/:id').patch(Validator.update, Controller.update)
 
 /**
  * @openapi
  * paths:
- *   /dataEntity/{dataEntityId}:
+ *   /dataEntity/{id}:
  *     delete:
  *       summary: 删除实体
  *       tags: [数据实体]
  *       parameters:
- *         - name: dataEntityId
+ *         - name: id
  *           in: path
  *           description: Sample ID
  *           required: true
@@ -130,17 +130,17 @@ router.route('/:dataEntityId').put(Validator.update, Controller.update)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('/:dataEntityId').delete(Validator.delete, Controller.delete)
+router.route('/:id').delete(Validator.delete, Controller.delete)
 
 /**
  * @openapi
  * paths:
- *   /dataEntity/{dataEntityId}/secure-action:
+ *   /dataEntity/{id}/secure-action:
  *     post:
  *       summary: Secure Action For Sample
  *       tags: [数据实体]
  *       parameters:
- *         - name: dataEntityId
+ *         - name: id
  *           in: path
  *           description: Sample ID
  *           required: true
@@ -161,12 +161,12 @@ router.route('/pathdelete').delete(Validator.pathdelete,Controller.pathdelete)
 /**
  * @openapi
  * paths:
- *   /dataEntity/{dataEntityId}/secure-action:
+ *   /dataEntity/{id}/secure-action:
  *     post:
  *       summary: Secure Action For Sample
  *       tags: [数据实体]
  *       parameters:
- *         - name: dataEntityId
+ *         - name: id
  *           in: path
  *           description: Sample ID
  *           required: true
@@ -182,7 +182,7 @@ router.route('/pathdelete').delete(Validator.pathdelete,Controller.pathdelete)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('/:dataEntityId/secure-action').post(
+router.route('/:id/secure-action').post(
   checkToken,
   checkRole,
   Validator.secureAction,

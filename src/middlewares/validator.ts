@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import Errors from 'http-errors'
-import Joi    from 'joi'
+import Joi from 'joi'
 import { MESSAGES } from '../services/i18n/types'
 
 interface IErrors {
@@ -23,37 +23,60 @@ function createMessage(error: Joi.ValidationError, reqKey: string): IErrors {
   for (let i = 0; i < error.details.length; i++) {
     const message: string = error.details[i].message
     const key: string = message.split('\"')[1]
-    errors[key] = [ message + ` (${reqKey})` ]
+    errors[key] = [message + ` (${reqKey})`]
   }
   return errors
 }
 
-const getKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T) => obj[key]
-const setKeyValue = <U extends keyof T, T extends object>(key: U) => (obj: T, value: any) => obj[key] = value
+const getKeyValue =
+  <U extends keyof T, T extends object>(key: U) =>
+  (obj: T) =>
+    obj[key]
+const setKeyValue =
+  <U extends keyof T, T extends object>(key: U) =>
+  (obj: T, value: any) =>
+    (obj[key] = value)
 
-export function validate(dataValidate: IDataValidate): (req: Request, _res: Response, next: NextFunction) => void {
-  return async function (req: Request, _res: Response, next: NextFunction): Promise<void> {
+export function validate(
+  dataValidate: IDataValidate
+): (req: Request, _res: Response, next: NextFunction) => void {
+  return async function (
+    req: Request,
+    _res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
       let errors: IErrors = {}
 
       const keys: REQUEST_TYPE[] = Object.keys(dataValidate) as REQUEST_TYPE[]
-      console.log(req.originalUrl,keys)
-      for(let i = 0; i < keys.length; i++) {
+      for (let i = 0; i < keys.length; i++) {
         const key: REQUEST_TYPE = keys[i]
         const schema: Joi.Schema = dataValidate[key] as Joi.Schema
         const filledData = getKeyValue<keyof Request, Request>(key)(req)
-        if(req.method === 'GET'){
-          Object.keys(filledData).forEach((key:string)=>{
-            filledData[key]=JSON.parse(filledData[key])
-          }) 
+        if (req.method === 'GET') {
+          Object.keys(filledData).forEach((key: string) => {
+            filledData[key] =
+              typeof filledData[key] === 'string'
+                ? filledData[key]
+                : JSON.parse(filledData[key])
+          })
         }
-        const result: Joi.ValidationResult<any> = schema.validate(filledData, { abortEarly: false })
-        if(result?.error) errors = { ...errors, ...createMessage(result.error, key) }
-        else setKeyValue<keyof Request, Request>(key)(req, result?.value)
+        const result: Joi.ValidationResult<any> = schema.validate(filledData, {
+          abortEarly: false
+        })
+        if (result?.error){
+          errors = { ...errors, ...createMessage(result.error, key) }
+        } else {
+          setKeyValue<keyof Request, Request>(key)(req, result?.value)
+        }
       }
-
-      if(Object.keys(errors).length !== 0) throw Errors(400, MESSAGES.VALIDATION_ERROR, { errors })
+      if (Object.keys(errors).length !== 0){
+        throw Errors(400, MESSAGES.VALIDATION_ERROR, { errors })
+      }
+        
       next()
-    } catch (error) { next(error) }
+    } catch (error) {
+      next(error)
+    }
   }
 }

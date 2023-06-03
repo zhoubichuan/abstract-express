@@ -28,12 +28,6 @@ const exportResult = {
     query: Joi.object({
       pageSize: Joi.number().default(10).description('分页大小'),
       current: Joi.number().default(1).description('当前页'),
-      // name: Joi.string().max(50).description('Sample Name'),
-      // userId: Joi.string().max(50).description('User ID'),
-      // dateRange: Joi.object({
-      //   from: Joi.date().description('Date Range From'),
-      //   to:   Joi.date().description('Date Range To'),
-      // }).or('from', 'to').description('Date Range'),
       sorter: Joi.string().valid(...Object.keys(config.sortTypes)).description('排序'),
     })
   }),
@@ -41,7 +35,7 @@ const exportResult = {
   // 详情字段
   details: validate({
     params: Joi.object({
-      attributeId: objectId.required().description('Sample ID')
+      id : objectId.required().description('数据实体id')
     }),
   }),
 
