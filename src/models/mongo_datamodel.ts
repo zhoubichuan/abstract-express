@@ -84,18 +84,103 @@ export default baseModel
  * @openapi
  * components:
  *   schemas:
- *     Sample:
+ *     DataModel:
  *       type: object
  *       required:
  *         - name
- *         - age
+ *         - nameEn
+ *         - descript
+ *         - descriptEn
+ *         - parentId
+ *         - modelType
+ *         - storeType
+ *         - inherit
+ *         - tableName
  *       properties:
  *         name:
  *           type: string
- *         age:
- *           type: integer
- *           description: User age
+ *           description: 中文名称
+ *         nameEn:
+ *           type: string
+ *           description: 英文名称
+ *         descript:
+ *           type: string
+ *           description: 中文描述
+ *         descriptEn:
+ *           type: string
+ *           description: 英文描述
+ *         parentId:
+ *           type: boolean
+ *           description: 父级id
+ *         modelType:
+ *           type: string
+ *           description: 模型类型
+ *         storeType:
+ *           type: boolean
+ *           description: 存储类型
+ *         inherit:
+ *           type: boolean
+ *           description: 继承类型
+ *         tableName:
+ *           type: string
+ *           description: 表名称
  *       example:
- *         name: 'Amin'
- *         age: 34
+ *         name: '中文名称'
+ *         nameEn: '英文名称'
+ *         descript: '这里是内容的中文描述'
+ *         descriptEn: '这里是内容的英文描述'
+ *         parentId: true
+ *         modelType: 'xdm'
+ *         storeType: true
+ *         inherit: false
+ *         tableName: 'abc'
+ *     Error:
+ *       type: object
+ *       properties:
+ *         statusCode:
+ *           type: integer
+ *         message:
+ *           type: string
+ *         body:
+ *           type: object
+ *       required:
+ *         - statusCode
+ *         - message
+ *       example:
+ *         statusCode: 400
+ *         message: 'Some Error ...'
+ *         body: null
+ *     Success:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
+ *           description: Response Status
+ *         result:
+ *           $ref: '#/components/schemas/DataEntity'
+ *   responses:
+ *     Success:
+ *       description: 请求成功响应
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Success'
+ *     BadRequest:
+ *       description:  错误请求提要
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Error'
+ *     NotFound:
+ *       description: 找不到指定的资源
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Error'
+ *     Unauthorized:
+ *       description: 未认证
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Error'
  */

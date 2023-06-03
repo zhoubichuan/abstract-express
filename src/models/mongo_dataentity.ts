@@ -148,6 +148,21 @@ export default baseModel
  *         storeType: true
  *         inherit: false
  *         tableName: 'abc'
+*     DataEntityList:
+ *       type: object
+ *       required:
+ *         - current
+ *         - pageSize
+ *       properties:
+ *         current:
+ *           type: number
+ *           description: 当前页面
+ *         pageSize:
+ *           type: number
+ *           description: 分页大小
+ *       example:
+ *         current: 1
+ *         pageSize: 20
  *     Error:
  *       type: object
  *       properties:

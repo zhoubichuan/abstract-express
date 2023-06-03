@@ -19,7 +19,7 @@ import { checkToken, checkRole }  from '../middlewares/check_auth'
 /**
  * @openapi
  * paths:
- *   /datamodel/:
+ *   /datamodel:
  *     post:
  *       summary: 创建数据模型
  *       tags: [数据模型]
@@ -40,7 +40,7 @@ router.route('').post(Validator.create, Controller.create)
 /**
  * @openapi
  * paths:
- *   /datamodel/:
+ *   /datamodel:
  *     get:
  *       summary: 获取数据模型列表
  *       tags: [数据模型]

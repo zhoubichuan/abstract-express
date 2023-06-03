@@ -7,8 +7,8 @@ import Validator  from '../validators/dataentity'
 import { checkToken, checkRole }  from '../middlewares/check_auth'
 
 // (action)             (verb)    (URI)
-// create:              POST      - /dataEntity
-// list:                POST      - /dataEntity
+// create:              POST      - /dataEntity/create
+// list:                POST      - /dataEntity/list
 // details:             GET       - /dataEntity/:dataEntityId
 // update:              PUT       - /dataEntity/:dataEntityId
 // delete:              DELETE    - /dataEntity/:dataEntityId
@@ -45,26 +45,15 @@ router.route('/create').post(Validator.create, Controller.create)
  *     post:
  *       summary: 获取实体列表
  *       tags: [数据实体]
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/DataEntityList'
  *       responses:
  *         "200":
- *           description: Gets a list of dataEntity as an array of objects
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   success:
- *                     type: boolean
- *                     description: Response Status
- *                   result:
- *                     type: array
- *                     items:
- *                       type: object
- *                       properties:
- *                         total:
- *                           type: integer
- *                         list:
- *                           $ref: '#/components/schemas/Sample'
+ *           $ref: '#/components/responses/Success'
  *         "400":
  *           $ref: '#/components/responses/BadRequest'
  */
