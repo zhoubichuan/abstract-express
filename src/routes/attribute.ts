@@ -10,8 +10,8 @@ import { checkToken, checkRole }  from '../middlewares/check_auth'
 // create:              POST      - /attribute
 // list:                GET       - /attribute
 // details:             GET       - /attribute/:attributeId
-// update:              PUT       - /attribute/:attributeId
-// delete:              DELETE    - /attribute/:attributeId
+// update:              PUT       - /attribute
+// delete:              DELETE    - /attribute
 // a secure action:     POST      - /attribute/:attributeId/secure-action
 
 // ---------------------------------- Define All Sample Routes Here ----------------------------------
@@ -96,7 +96,7 @@ router.route('/:attributeId').get(Validator.details, Controller.details)
 /**
  * @openapi
  * paths:
- *   /attribute/{attributeId}:
+ *   /attribute:
  *     put:
  *       summary: 更新属性
  *       tags: [模型属性]
@@ -115,13 +115,13 @@ router.route('/:attributeId').get(Validator.details, Controller.details)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('/:attributeId').put(Validator.update, Controller.update)
+router.route('').put(Validator.update, Controller.update)
 // router.route('/:attributeId').patch(Validator.update, Controller.update)
 
 /**
  * @openapi
  * paths:
- *   /attribute/{attributeId}:
+ *   /attribute:
  *     delete:
  *       summary: 删除属性
  *       tags: [模型属性]
@@ -140,7 +140,7 @@ router.route('/:attributeId').put(Validator.update, Controller.update)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('/:attributeId').delete(Validator.delete, Controller.delete)
+router.route('').delete(Validator.delete, Controller.delete)
 
 /**
  * @openapi
