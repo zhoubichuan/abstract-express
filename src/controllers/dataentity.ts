@@ -11,8 +11,8 @@ const exportResult = {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const data: IDataentity = req.body
-      const {id}: any = await Dataentity.getNextSequenceValue()
-      data.code = id||'1'
+      const currentId = await Dataentity.getId()
+      data.code = currentId
       const result = await Dataentity.add(data)
 
       // ---- Use Socket.io

@@ -1,4 +1,4 @@
-// Open http://<app_host>:<app_port>/api/docs in your browser to view the documentation.
+// Open https://<app_host>:<app_port>/api/docs in your browser to view the documentation.
 import swaggerJSDoc from 'swagger-jsdoc'
 import config       from '../configs'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -14,7 +14,7 @@ const swaggerDefinition = {
     title: name,
     version,
     description,
-    license: { name: license, url: 'http://aminabbasi.com/licenses' },
+    license: { name: license, url: 'https://aminabbasi.com/licenses' },
     contact: { name: author, email: 'amin.abbasi.rs@gmail.com' }
   },
   servers: [ { url: `${url}` } ],

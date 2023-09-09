@@ -10,8 +10,20 @@ declare module './mongo_base' {
   interface Model {
     // Add new methods to class ...
     greetings: (dataentityId: string) => Promise<string>
-    // findByVideo: (video: string) => Promise<IDataentity>
+    getId: () => Promise<string>
   }
+}
+/** Get Model Mane */
+Model.prototype.getId = async function (): Promise<string> {
+  let currentId = '1'
+  let preRow = await this.model.find({}).sort({ updatedAt: -1 }).limit(1)
+  if (!preRow[0] || !preRow[0].id) {
+    currentId = '0000001'
+  } else {
+    currentId = String(Number(preRow[0].id) + 1)
+    currentId = '0'.repeat(7 - currentId.length) + currentId
+  }
+  return currentId
 }
 
 /** Get Model Mane */
@@ -35,7 +47,7 @@ Model.prototype.greetings = async function (
 // ------------------------------ Your Sample Interface ------------------------------
 // -----------------------------------------------------------------------------------
 export interface IDataentity extends IModel {
-  code?:string
+  code?: string
   name: string
   nameEn: string
   descript: string
@@ -148,7 +160,7 @@ export default baseModel
  *         storeType: true
  *         inherit: false
  *         tableName: 'abc'
-*     DataEntityList:
+ *     DataEntityList:
  *       type: object
  *       required:
  *         - current
