@@ -43,7 +43,7 @@
     "mysql": "2.18.1",
     "redis": "4.5.0",
     "reflect-metadata": "0.1.13",
-    "socket.io": "4.5.3",
+    "socket.io": "4.7.4",
     "swagger-jsdoc": "6.2.5",
     "swagger-ui-express": "4.6.0",
     "typeorm": "0.3.10",
