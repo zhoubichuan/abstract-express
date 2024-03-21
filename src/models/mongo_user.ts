@@ -117,21 +117,27 @@ export default baseModel
  *       type: object
  *       required:
  *         - username
- *         - age
+ *         - password
+ *         - email
+ *         - access
  *       properties:
  *         username:
  *           type: string
- *         autoLogin:
+ *           description: 账户
+ *         access:
  *           type: boolean
- *           description: User age
+ *           description: 权限
  *         password:
  *           type: string
- *         type:
- *           type: integer
- *           description: User age
+ *           description: 密码
+ *         email:
+ *           type: string
+ *           description: 邮箱地址
  *       example:
- *         username: 'Amin'
- *         age: 34
+ *         username: 'admin'
+ *         password: 'ant.design'
+ *         email: 'zhoubichuan@icloud.com'
+ *         access: 'access'
  *     Error:
  *       type: object
  *       properties:
