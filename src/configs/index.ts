@@ -1,6 +1,6 @@
-// import dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import { IConfigModel, IEnvironmentModel } from './types'
-// dotenv.config()
+dotenv.config()
 
 const env = JSON.parse(JSON.stringify(process.env)) as IEnvironmentModel
 

@@ -89,7 +89,7 @@ typings/
 __snapshots__
 
 # complied typescript folder
-dist
+abstract-express
 
 # ssl Certificate folder
 # sslCert/*

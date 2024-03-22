@@ -4,7 +4,9 @@
   "description": "数据管理系统",
   "main": "./src/server.ts",
   "scripts": {
-    "pm2": "pm2 stop src/server --name abstract-express && pm2 start src/server --name abstract-express",
+    "pm2:stop": "pm2 stop abstract-express/server.js --name abstract-express",
+    "pm2:start": "pm2 start abstract-express/server.js --name abstract-express",
+    "pm2": "npm run pm2:stop && npm run pm2:start",
     "dev": "dotenv -e .env.dev  nodemon src/server",
     "sit": "dotenv -e .env.sit nodemon src/server",
     "uat": "dotenv -e .env.uat nodemon src/server",
@@ -12,7 +14,7 @@
     "start": "ts-node src/server.ts --trace-warnings",
     "test": "jest --updateSnapshot --detectOpenHandles --coverage --forceExit --verbose",
     "build": "tsc",
-    "nodemon": "nodemon dist/server.js"
+    "nodemon": "nodemon abstract-express/server.js"
   },
   "repository": {
     "type": "git",
@@ -41,6 +43,7 @@
     "mongoose": "6.7.2",
     "mongoose-unique-validator": "3.1.0",
     "mysql": "2.18.1",
+    "pm2": "^5.3.1",
     "redis": "4.5.0",
     "reflect-metadata": "0.1.13",
     "socket.io": "4.5.3",

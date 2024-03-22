@@ -4,6 +4,7 @@ import { RedisClientOptions, createClient } from 'redis'
 import config from '../configs'
 
 const { REDIS_HOST, REDIS_PORT, REDIS_PASS } = config.env
+console.log('redis : '+REDIS_HOST, REDIS_PORT, REDIS_PASS )
 const url = `redis://${REDIS_PASS ? `:${REDIS_PASS}@` : ''}${REDIS_HOST}:${REDIS_PORT}`
 const options: RedisClientOptions = { url }
 if (REDIS_PASS) options.password = REDIS_PASS

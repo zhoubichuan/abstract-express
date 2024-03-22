@@ -6,7 +6,6 @@ import http   from 'http'
 import https  from 'https'
 import app    from './app'
 import config from './configs'
-
 const { NODE_ENV, SERVER_PROTOCOL, SERVER_HOST, SERVER_PORT } = config.env
 
 // ------ Require Database
