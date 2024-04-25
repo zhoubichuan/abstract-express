@@ -45,12 +45,8 @@ const exportResult = {
     next: NextFunction
   ): Promise<void> {
     try {
-      const dataentityId: string = req.params.dataentityId
-      // const result = await Sample.details(dataentityId)
-
-      // Get your custom method
-      const result = await Dataentity.greetings(dataentityId)
-
+      const id: string = req.params.id
+      const result = await Dataentity.greetings(id)
       res.result = (result as any)._doc
       next(res)
     } catch (err) {
@@ -61,8 +57,8 @@ const exportResult = {
   // 更新
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const dataentityId: string = req.params.dataentityId
-      const result = await Dataentity.updateById(dataentityId, req.body)
+      const id: string = req.params.id
+      const result = await Dataentity.updateById(id, req.body)
       res.result = (result as any)._doc
       next(res)
     } catch (err) {
@@ -77,8 +73,8 @@ const exportResult = {
     next: NextFunction
   ): Promise<void> {
     try {
-      const dataentityId: string = req.params.dataentityId
-      const result = await Dataentity.softDelete(dataentityId)
+      const id: string = req.params.id
+      const result = await Dataentity.softDelete(id)
       res.result = (result as any)._doc
       next(res)
     } catch (err) {
@@ -89,8 +85,8 @@ const exportResult = {
   // 删除
   async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const dataentityId: string = req.params.dataentityId
-      const result = await Dataentity.remove(dataentityId)
+      const id: string = req.params.id
+      const result = await Dataentity.remove(id)
       res.result = result
       next(res)
     } catch (err) {

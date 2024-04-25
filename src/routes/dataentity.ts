@@ -113,7 +113,7 @@ router.route('/:id').put(Validator.update, Controller.update)
  * paths:
  *   /dataEntity/{id}:
  *     delete:
- *       summary: 删除实体
+ *       summary: 单个删除
  *       tags: [数据实体]
  *       parameters:
  *         - name: id
@@ -135,9 +135,9 @@ router.route('/:id').delete(Validator.delete, Controller.delete)
 /**
  * @openapi
  * paths:
- *   /dataEntity/{id}/secure-action:
+ *   /dataEntity/pathdelete:
  *     post:
- *       summary: Secure Action For Sample
+ *       summary: 批量删除
  *       tags: [数据实体]
  *       parameters:
  *         - name: id
@@ -163,7 +163,7 @@ router.route('/pathdelete').delete(Validator.pathdelete,Controller.pathdelete)
  * paths:
  *   /dataEntity/{id}/secure-action:
  *     post:
- *       summary: Secure Action For Sample
+ *       summary: 安全验证
  *       tags: [数据实体]
  *       parameters:
  *         - name: id

@@ -1,4 +1,4 @@
-import Joi    from 'joi'
+import Joi from 'joi'
 import config from '../configs'
 import { validate } from '../middlewares/validator'
 
@@ -35,30 +35,36 @@ const exportResult = {
   // 详情字段
   details: validate({
     params: Joi.object({
-      id : objectId.required().description('数据实体id')
+      id: objectId.required().description('数据实体id')
     }),
   }),
 
   // 更新字段
   update: validate({
-    // body: Joi.object({
-    //   name: Joi.string().description('User Name'),
-    //   userId: objectId.required().description('User ID')
-    // }),
     params: Joi.object({
-      attributeId: objectId.required().description('Sample ID')
+      id: objectId.required().description('id字段')
+    }),
+    body: Joi.object({
+      name: Joi.string().required().description('中文名称'),
+      nameEn: Joi.string().required().description('英文名称'),
+      descript: Joi.string().required().description('中文描述'),
+      descriptEn: Joi.string().description('英文描述'),
+      parentId: Joi.boolean().required().description('父级id'),
+      modelType: Joi.string().required().description('模型类型'),
+      storeType: Joi.boolean().required().description('存储类型'),
+      inherit: Joi.boolean().required().description('继承类型'),
+      tableName: Joi.string().required().description('表名称'),
+      // image: Joi.string().description('图片'),
+      // video: Joi.string().description('视频'),
     }),
   }),
 
-  // 软删除字段
+  // 单个删除
   delete: validate({
-    params: Joi.object({
-      attributeId: objectId.required().description('id字段')
-    }),
-    query: Joi.object({})
+
   }),
 
-  // 批量删除字段
+  // 批量删除
   pathdelete: validate({
     body: Joi.array()
   }),
