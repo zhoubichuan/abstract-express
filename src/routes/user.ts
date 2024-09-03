@@ -30,13 +30,17 @@ import { checkToken, checkRole } from '../middlewares/check_auth'
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/CreateUser'
  *       responses:
  *         "200":
  *           $ref: '#/components/responses/Success'
  *         "400":
  *           $ref: '#/components/responses/BadRequest'
- */
+ *         "404":
+ *           $ref: '#/components/responses/NotFound'
+ *         "401":
+ *           $ref: '#/components/responses/Unauthorized'
+ */        
 router.route('').post(Validator.create, Controller.create)
 
 /**

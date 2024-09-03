@@ -10,7 +10,7 @@ const exportResult = {
   create: validate({
     body: Joi.object({
       username: Joi.string().required().description('用户名称'),
-      access: Joi.string().required().description('权限'),
+      access: Joi.boolean().required().description('权限'),
       email: Joi.string().required().description('邮箱'),
       password: Joi.string().required().description('密码'),
     }),

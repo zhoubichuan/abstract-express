@@ -113,6 +113,29 @@ export default baseModel
  * @openapi
  * components:
  *   schemas:
+ *     CreateUser:
+ *       type: object
+ *       required:
+ *         - username
+ *         - access
+ *         - email
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *         access:
+ *           type: boolean
+ *           description: User age
+ *         password:
+ *           type: string
+ *         email:
+ *           type: string
+ *           description: User age
+ *       example:
+ *         username: 'Amin'
+ *         access: true
+ *         email: 'zhoubichuan@icloud.com'
+ *         password: '123456'
  *     User:
  *       type: object
  *       required:
