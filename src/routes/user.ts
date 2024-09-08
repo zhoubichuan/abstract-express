@@ -30,7 +30,28 @@ import { checkToken, checkRole } from '../middlewares/check_auth'
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/CreateUser'
+ *               type: object
+ *               required:
+ *                 - username
+ *                 - access
+ *                 - email
+ *                 - password
+ *               properties:
+ *                 username:
+ *                   type: string
+ *                 access:
+ *                   type: boolean
+ *                   description: User age
+ *                 password:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                   description: User age
+ *               example:
+ *                 username: 'Amin'
+ *                 access: true
+ *                 email: 'zhoubichuan@icloud.com'
+ *                 password: '123456'
  *       responses:
  *         "200":
  *           $ref: '#/components/responses/Success'
@@ -85,7 +106,7 @@ router.route('').get(Validator.list, Controller.list)
  *       parameters:
  *         - name: userId
  *           in: path
- *           description: Sample ID
+ *           description: 用户id
  *           required: true
  *           schema:
  *             user: string
@@ -106,6 +127,33 @@ router.route('/:userId').get(Controller.details)
  *     put:
  *       summary: 更新用户
  *       tags: [用户信息]
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - username
+ *                 - access
+ *                 - email
+ *                 - password
+ *               properties:
+ *                 username:
+ *                   type: string
+ *                 access:
+ *                   type: boolean
+ *                   description: User age
+ *                 password:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                   description: User age
+ *               example:
+ *                 username: 'Amin'
+ *                 access: true
+ *                 email: 'zhoubichuan@icloud.com'
+ *                 password: '123456'
  *       parameters:
  *         - name: userId
  *           in: path
@@ -158,7 +206,7 @@ router.route('').delete(Validator.delete, Controller.delete)
  *       parameters:
  *         - name: userId
  *           in: path
- *           description: Sample ID
+ *           description: 用户id
  *           required: true
  *           schema:
  *             user: string
@@ -190,7 +238,20 @@ router.route('/:userId/secure-action').post(
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *              type: object
+ *              required:
+ *                - username
+ *                - password
+ *              properties:
+ *                username:
+ *                  type: string
+ *                  description: 账户
+ *                password:
+ *                  type: string
+ *                  description: 密码
+ *              example:
+ *                username: 'admin'
+ *                password: '123456'
  *       responses:
  *         "200":
  *           $ref: '#/components/responses/Success'
@@ -202,21 +263,15 @@ router.route('/login').post(Validator.login, Controller.login)
  * @openapi
  * paths:
  *   /user/current:
- *     post:
+ *     get:
  *       summary: 获取当前用户
  *       tags: [用户信息]
- *       requestBody:
- *         required: true
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
  *       responses:
  *         "200":
  *           $ref: '#/components/responses/Success'
  *         "400":
  *           $ref: '#/components/responses/BadRequest'
  */
-router.route('/current').post(Controller.current)
+router.route('/current').get(Controller.current)
 
 export default router
