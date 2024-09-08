@@ -31,5 +31,6 @@
 	"Parameter \"filter\" to find() must be an object, got 64623cb8a18284bd36c092c0": "Parameter \"filter\" to find() must be an object, got 64623cb8a18284bd36c092c0",
 	"connection timed out": "connection timed out",
 	"Unexpected token d in JSON at position 1": "Unexpected token d in JSON at position 1",
-	"Unexpected token f in JSON at position 7": "Unexpected token f in JSON at position 7"
+	"Unexpected token f in JSON at position 7": "Unexpected token f in JSON at position 7",
+	"Cast to ObjectId failed for value \"pathdelete\" (type string) at path \"_id\" for model \"dataentity\"": "Cast to ObjectId failed for value \"pathdelete\" (type string) at path \"_id\" for model \"dataentity\""
 }

@@ -41,7 +41,15 @@ const exportResult = {
 
   // 软删除字段
   delete: validate({
-    body: Joi.array().items(Joi.string()).min(1),
+    params: Joi.object({
+      id: objectId.required().description('用户id')
+    }),
+  }),
+  // 软删除字段
+  patchDelete: validate({
+    body: Joi.object({
+      id: Joi.array().required().description('用户id列表')
+    }),
   }),
 
   // 安全验证
@@ -55,10 +63,8 @@ const exportResult = {
   // 登陆字段
   login: validate({
     body: Joi.object({
-      // account: Joi.string().required().description('账户'),
-      username: Joi.string().description('名称'),
-      type: Joi.string().description('类型'),
-      autoLogin: Joi.boolean().description('登陆登出'),
+      username: Joi.string().description('用户名称'),
+      password: Joi.string().description('用户密码'),
     }),
     query: Joi.object({})
   }),

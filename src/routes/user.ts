@@ -125,12 +125,12 @@ router.route('/list').get(Validator.list, Controller.list)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('/:userId').get(Controller.details)
+router.route('/:id').get(Controller.details)
 
 /**
  * @openapi
  * paths:
- *   /user/{userId}:
+ *   /user/{id}:
  *     put:
  *       summary: 更新用户
  *       tags: [用户信息]
@@ -176,7 +176,7 @@ router.route('/:userId').get(Controller.details)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('/:userId').put(Validator.update, Controller.update)
+router.route('/:id').put(Validator.update, Controller.update)
 // router.route('/:userId').patch(Validator.update, Controller.update)
 
 /**
@@ -201,7 +201,31 @@ router.route('/:userId').put(Validator.update, Controller.update)
  *         "404":
  *           $ref: '#/components/responses/NotFound'
  */
-router.route('').delete(Validator.delete, Controller.delete)
+router.route('/:id').delete(Validator.delete, Controller.delete)
+
+/**
+ * @openapi
+ * paths:
+ *   /user/{id}:
+ *     delete:
+ *       summary: 批量删除用户
+ *       tags: [用户信息]
+ *       parameters:
+ *         - name: userId
+ *           in: path
+ *           description: 用户id
+ *           required: true
+ *           schema:
+ *             ids: array
+ *       responses:
+ *         "200":
+ *           $ref: '#/components/responses/Success'
+ *         "400":
+ *           $ref: '#/components/responses/BadRequest'
+ *         "404":
+ *           $ref: '#/components/responses/NotFound'
+ */
+router.route('/pathdelete').delete(Validator.patchDelete, Controller.patchDelete)
 
 /**
  * @openapi

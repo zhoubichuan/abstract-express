@@ -14,11 +14,6 @@ const exportResult = {
     try {
       const data: IUser = req.body
       const result = await User.add(data)
-
-      // ---- Use Socket.io
-      // const io: SocketIO.Server = req.app.get('io')
-      // io.emit('someEvent', { someData: '...' })
-
       res.result = (result as any)._doc
       next(res)
     } catch (err) { next(err) }
@@ -75,17 +70,23 @@ const exportResult = {
   // 删除
   async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const userIds: string[]= req.body
-      if (userIds.length === 1) {
-        res.result = await User.remove(userIds[0])
-      } else {
-        res.result = await User.removePatch(userIds)
-      }
+      const id: string = req.params.id
+      const result = await User.remove(id)
+      res.result = result
+      next(res)
+    } catch (err) {
+      next(err)
+    }
+  },
+  // 批量删除
+  async patchDelete(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userIds: string[] = req.body
+      res.result = await User.removePatch(userIds)
       next(res)
     }
     catch (err) { next(err) }
   },
-
   // 安全认证
   async secureAction(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
@@ -105,10 +106,6 @@ const exportResult = {
     try {
       const data: IUser = req.body
       const result = await User.findByUsername(data.username)
-
-      // ---- Use Socket.io
-      // const io: SocketIO.Server = req.app.get('io')
-      // io.emit('someEvent', { someData: '...' })
       result.comparePwd(data.password, (err: any, isMatch: boolean) => {
         if (err) throw err
         if (isMatch == true) {

@@ -66,7 +66,7 @@ export class Model {
   }
 
   async add(data: Document): Promise<Document> {
-    const modelData = { ...data, createdAt: Date.now() }
+    const modelData = { ...data }
     return await this.model.create(modelData)
   }
 

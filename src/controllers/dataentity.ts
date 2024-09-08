@@ -96,7 +96,7 @@ const exportResult = {
   // 批量删除
   async pathdelete(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const ids: [] = req.body
+      const ids: string[] = req.body
       const result = await Dataentity.removePatch(ids)
       res.result = result
       next(res)
