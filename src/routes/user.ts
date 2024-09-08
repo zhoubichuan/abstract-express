@@ -7,8 +7,8 @@ import Validator from '../validators/user'
 import { checkToken, checkRole } from '../middlewares/check_auth'
 
 // (action)             (verb)    (URI)
-// create:              POST      - /user
-// list:                GET       - /user
+// create:              POST      - /user/create
+// list:                GET       - /user/list
 // details:             GET       - /user/:userId
 // update:              PUT       - /user/:userId
 // delete:              DELETE    - /user
@@ -21,7 +21,7 @@ import { checkToken, checkRole } from '../middlewares/check_auth'
 /**
  * @openapi
  * paths:
- *   /user:
+ *   /user/create:
  *     post:
  *       summary: 创建用户
  *       tags: [用户信息]
@@ -33,24 +33,31 @@ import { checkToken, checkRole } from '../middlewares/check_auth'
  *               type: object
  *               required:
  *                 - username
+ *                 - password
  *                 - access
  *                 - email
- *                 - password
+ *                 - phone
  *               properties:
  *                 username:
  *                   type: string
+ *                   description: 用户名称
  *                 access:
  *                   type: boolean
- *                   description: User age
+ *                   description: 用户权限
  *                 password:
  *                   type: string
+ *                   description: 用户密码
  *                 email:
  *                   type: string
- *                   description: User age
+ *                   description: 用户邮箱
+ *                 phone:
+ *                   type: string
+ *                   description: 用户手机
  *               example:
- *                 username: 'Amin'
+ *                 username: 'admin'
  *                 access: true
  *                 email: 'zhoubichuan@icloud.com'
+ *                 phone: '97232334145'
  *                 password: '123456'
  *       responses:
  *         "200":
@@ -62,12 +69,12 @@ import { checkToken, checkRole } from '../middlewares/check_auth'
  *         "401":
  *           $ref: '#/components/responses/Unauthorized'
  */        
-router.route('').post(Validator.create, Controller.create)
+router.route('/create').post(Validator.create, Controller.create)
 
 /**
  * @openapi
  * paths:
- *   /user:
+ *   /user/list:
  *     get:
  *       summary: 获取用户列表
  *       tags: [用户信息]
@@ -94,7 +101,7 @@ router.route('').post(Validator.create, Controller.create)
  *         "400":
  *           $ref: '#/components/responses/BadRequest'
  */
-router.route('').get(Validator.list, Controller.list)
+router.route('/list').get(Validator.list, Controller.list)
 
 /**
  * @openapi

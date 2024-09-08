@@ -35,6 +35,9 @@ Model.prototype.findByUsername = async function (username: string): Promise<IUse
 export interface IUser extends IModel {
   username: string
   password: string
+  phone: string
+  email: string
+  access: boolean
   comparePwd: (...param:any) => void
 }
 
@@ -49,7 +52,23 @@ export interface IUserUpdate extends IModelUpdate {
 // -----------------------------------------------------------------------------------
 const definition: SchemaDefinition = {
   username: { type: mongoose.Schema.Types.String, required: true, unique: true },
-  password: { type: mongoose.Schema.Types.String, required: true, unique: true },
+  password: { type: mongoose.Schema.Types.String, required: true},
+  phone: { type: mongoose.Schema.Types.String, required: true, unique: true },
+  email: { type: mongoose.Schema.Types.String, required: true, unique: true },
+  access: { type: mongoose.Schema.Types.Boolean, required: true, },
+  creater: {
+    type: mongoose.Schema.Types.String,
+    default: ''
+  },
+  creatTime: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now
+  },
+  modifier: { type: mongoose.Schema.Types.String, default: '' },
+  modifyTime: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now
+  }
 }
 
 const baseModel: Model = new Model(definition)

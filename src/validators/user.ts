@@ -12,6 +12,7 @@ const exportResult = {
       username: Joi.string().required().description('用户名称'),
       access: Joi.boolean().required().description('权限'),
       email: Joi.string().required().description('邮箱'),
+      phone: Joi.string().required().description('手机号'),
       password: Joi.string().required().description('密码'),
     }),
   }),
@@ -33,6 +34,7 @@ const exportResult = {
       username: Joi.string().required().description('用户名称'),
       access: Joi.string().description('权限'),
       email: Joi.string().required().description('邮箱'),
+      phone: Joi.string().required().description('手机号'),
       password: Joi.string().required().description('密码'),
     }),
   }),
@@ -56,7 +58,6 @@ const exportResult = {
       // account: Joi.string().required().description('账户'),
       username: Joi.string().description('名称'),
       type: Joi.string().description('类型'),
-      password: Joi.string().required().description('密码'),
       autoLogin: Joi.boolean().description('登陆登出'),
     }),
     query: Joi.object({})
@@ -64,9 +65,7 @@ const exportResult = {
 
   // 详情字段
   current: validate({
-    params: Joi.object({
-      token: objectId.required().description('token')
-    }),
+    params: Joi.object({}),
     query: Joi.object({})
   }),
 }
