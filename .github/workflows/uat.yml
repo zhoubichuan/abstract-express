@@ -46,5 +46,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd /usr/src/zhoubichuan/prod/abstract-express
+            export NODE_HOME=/usr/bin/node
+            export PATH=$PATH:$NODE_HOME/bin
             pm2 delete abstract-express
             pm2 start server.js --name abstract-express

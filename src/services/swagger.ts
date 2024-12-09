@@ -6,7 +6,7 @@ const myPackage = require('../../package.json')
 const { name, version, description, license, author } = myPackage
 
 const { SERVER_PROTOCOL, SERVER_HOST, SERVER_PORT } = config.env
-const url = `${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/api`
+const url = `${SERVER_PROTOCOL}://${SERVER_HOST}:${SERVER_PORT}/abstract-express/api`
 
 const swaggerDefinition = {
   openapi: '3.0.0',
