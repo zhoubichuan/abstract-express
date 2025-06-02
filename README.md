@@ -31,9 +31,11 @@ npm run test
 sudo docker-compose up -d
 ```
 
-### 1.5 swagger 地址
+### 1.5 swagger
 
 [http://localhost:7005/api/docs](http://localhost:7005/api/docs>)
+
+[https://zhoubichuan.com/abstract-express/api/docs](https://zhoubichuan.com/abstract-express/api/docs)
 
 ## 2.前端地址
 
