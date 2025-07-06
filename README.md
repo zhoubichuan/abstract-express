@@ -33,7 +33,7 @@ sudo docker-compose up -d
 
 ### 1.5 swagger
 
-[http://localhost:7005/api/docs](http://localhost:7005/api/docs>)
+[http://localhost:7005/api/docs](http://localhost:7005/api/docs)
 
 [https://zhoubichuan.com/abstract-express/api/docs](https://zhoubichuan.com/abstract-express/api/docs)
 

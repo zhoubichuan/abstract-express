@@ -15,7 +15,7 @@
     "test": "jest --updateSnapshot --detectOpenHandles --coverage --forceExit --verbose",
     "build": "tsc",
     "nodemon": "nodemon abstract-express/server.js",
-    "deploy": "scp -r ./abstract-express/* root@zhoubichuan.com:/usr/src/zhoubichuan/prod/abstract-express"
+    "scp": "scp -r ./abstract-express/* root@zhoubichuan.com:/usr/src/zhoubichuan/prod/abstract-express"
   },
   "repository": {
     "type": "git",
