@@ -4,11 +4,11 @@ import { RedisClientOptions, createClient } from 'redis'
 import config from '../configs'
 
 const { REDIS_HOST, REDIS_PORT, REDIS_PASS } = config.env
-console.log('redis : '+REDIS_HOST, REDIS_PORT, REDIS_PASS )
+console.log('redis : ' + REDIS_HOST, REDIS_PORT, REDIS_PASS)
 const url = `redis://${REDIS_PASS ? `:${REDIS_PASS}@` : ''}${REDIS_HOST}:${REDIS_PORT}`
 const options: RedisClientOptions = { url }
 if (REDIS_PASS) options.password = REDIS_PASS
-const client:any = createClient(options)
+const client: any = createClient(options)
 
 const getAsync = promisify(client.get).bind(client)
 
@@ -17,7 +17,7 @@ console.log(`<<<< 连接 Redis >>>>`, url)
 
 // -------------------------------------- Redis Functions --------------------------------------
 function set(key: string, value: any) {
-     return promisify(client.set).bind(client)(key,value)
+    return promisify(client.set).bind(client)(key, value)
 }
 
 async function get(keyPattern: string): Promise<any> {
@@ -33,4 +33,4 @@ async function get(keyPattern: string): Promise<any> {
     }
 }
 
-export default Object.assign(client,{set, get})
+export default Object.assign(client, { set, get })
